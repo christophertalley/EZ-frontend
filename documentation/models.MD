@@ -21,8 +21,8 @@
     - Integer
     - References empty form
  - FieldData:
-  - Type: Obj
-     - This will be a mongo document that will change based on the form being submitted
-     - [Ex FieldData Obj](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/Field%20Data%20Ex.PNG)
+    - Type: Obj
+      - This will be a mongo document that will change based on the form being submitted
+      - [Ex FieldData Obj](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/Field%20Data%20Ex.PNG)
     
   
