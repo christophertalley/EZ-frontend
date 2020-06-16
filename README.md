@@ -9,10 +9,14 @@ EZforms is a form generation service inspired by Wufoo.
 ## Demo
   - more to come..
 
-## [Feature List](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/feature-list.MD)
+## Documentation Links:
 
-## [Frontend Routes](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/frontend-route.MD)
+### [Feature List](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/feature-list.MD)
 
-## [Backend Routes](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/backend-routes.MD)
+### [Frontend Routes](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/frontend-route.MD)
 
-## [Schema Routes](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/backend-routes.MD)
+### [Backend Routes](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/backend-routes.MD)
+
+### [Models](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/models.MD)
+
+### [Schema](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/backend-routes.MD)
