@@ -6,6 +6,7 @@ EZforms is a form generation service inspired by Wufoo.
 - Auth0
 - MongoDB
 - Mongoose
+- React-beautiful-dnd
 - Victory
 - Material UI
 - more to come..
