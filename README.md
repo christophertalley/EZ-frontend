@@ -22,4 +22,4 @@ EZforms is a form generation service inspired by Wufoo.
 
 ### [Models](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/models.MD)
 
-### [Schema](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/backend-routes.MD)
+### [Schema](https://github.com/christophertalley/EZ-frontend/blob/master/documentation/schema.MD)
