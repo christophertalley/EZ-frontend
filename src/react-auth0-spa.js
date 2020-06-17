@@ -1,6 +1,7 @@
 // src/react-auth0-spa.js
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
+import { api } from "./config"
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
     window.history.replaceState({}, document.title, window.location.pathname);
@@ -35,10 +36,23 @@ export const Auth0Provider = ({
 
             if (isAuthenticated) {
                 const user = await auth0FromHook.getUser();
-                setUser(user);
-            }
+                const token = await auth0FromHook.getTokenSilently();
+                const data = {username: user.nickname};
 
+                const res = await fetch(`${api}/users`, {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                const apiRes = await res.json();
+                console.log(apiRes)
+                setUser({...user, userId: apiRes.userId});
+            }
             setLoading(false);
+
         };
         initAuth0();
         // eslint-disable-next-line
