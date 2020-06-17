@@ -30,3 +30,14 @@ ReactDOM.render(
 );
 
 serviceWorker.unregister();
+
+
+// fieldData = {
+//   name: {
+//     firstName: "Chris",
+//     lasName: "Talley"
+//   },
+//   date: 01/12/12,
+//   rating: 3,
+//   phone: "(###) ### - ####"
+// }
