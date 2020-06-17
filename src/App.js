@@ -6,6 +6,8 @@ import history from "./utils/history";
 import PrivateRoute from "./components/PrivateRoute";
 import { useAuth0 } from "./react-auth0-spa";
 import ExternalApi from "./views/ExternalApi";
+import Home from "./components/Home";
+import "./styles/index.css"
 
 export default function App() {
   const { loading } = useAuth0();
@@ -21,7 +23,7 @@ export default function App() {
         <Navbar />
       </header>
       <Switch>
-        <Route exact path="/"/>
+        <Route exact path="/" component={Home}/>
         <PrivateRoute path ="/profile" component={Profile}/>
         <PrivateRoute path ="/external-api" component={ExternalApi}/>
       </Switch>
