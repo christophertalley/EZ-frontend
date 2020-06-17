@@ -11,7 +11,7 @@
   - ID Intger Pkey
   - Label: String(50)
   - Type: array()
-    -  Will be an array of strings used to signal different types of input
+    -  Will be an array of documents used to signal different types of input and provide any extra data required for rendering the form.
   - UserId = Integer Fkey refs UserID
   - URL
     - String
