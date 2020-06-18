@@ -1,13 +1,14 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Profile from "./components/Profile";
+import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import PrivateRoute from "./components/PrivateRoute";
-import { useAuth0 } from "./react-auth0-spa";
+import Navbar from "./components/Navbar";
+import Profile from "./components/Profile";
 import ExternalApi from "./views/ExternalApi";
 import Home from "./components/Home";
 import "./styles/index.css"
+import EmptyForm from "./components/EmptyForm";
 
 export default function App() {
   const { loading } = useAuth0();
@@ -25,6 +26,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Home}/>
         <PrivateRoute path ="/profile" component={Profile}/>
+        <PrivateRoute path="/form-builder" component={EmptyForm}/>
         <PrivateRoute path ="/external-api" component={ExternalApi}/>
       </Switch>
     </Router>
