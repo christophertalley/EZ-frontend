@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles(()=>({
@@ -32,6 +32,7 @@ const useStyles = makeStyles(()=>({
 }))
 
 export default function EmptyForm(){
+    const {fields, setFields} = useState([]);
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -41,7 +42,9 @@ export default function EmptyForm(){
                 </Typography>
             </div>
             <div className={classes.formContainer}>
-                form will go here
+                <form id="empty">
+
+                </form>
             </div>
         </div>
     )
