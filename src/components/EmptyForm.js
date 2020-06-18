@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-const useStyles = makeStyles(()=>({
+//Field Imports
+import SingleLineText from './Fields/SingleLineText';
+import MultiLineText from "./Fields/MultiLineText";
+import Number from "./Fields/Number";
+import Date from "./Fields/Date";
+import Time from "./Fields/Time";
+const useStyles = makeStyles((theme)=>({
     root: {
         display: "flex",
         flexDirection: "row",
@@ -16,7 +22,11 @@ const useStyles = makeStyles(()=>({
         width: "450px",
         borderRadius: "15px",
         margin: "15px",
-        marginRight: "50px"
+        marginRight: "50px",
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
+            width: '22ch',
+        }
 
     },
     formContainer: {
@@ -28,7 +38,7 @@ const useStyles = makeStyles(()=>({
         borderRadius: "15px",
         margin: "15px",
         marginLeft: "50px"
-    }
+    },
 }))
 
 export default function EmptyForm(){
@@ -37,13 +47,21 @@ export default function EmptyForm(){
     return (
         <div className={classes.root}>
             <div className={classes.fieldContainer}>
-                <Typography>
+                <Typography style={{textAlign: "center"}} >
                     Fields will go here
                 </Typography>
+                <SingleLineText/>
+                <MultiLineText/>
+                <Number/>
+                <Date/>
+                <Time/>
+
             </div>
             <div className={classes.formContainer}>
                 <form id="empty">
-
+                    <Typography style={{ textAlign: "center" }} >
+                        Empty Form goes here
+                    </Typography>
                 </form>
             </div>
         </div>

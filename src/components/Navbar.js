@@ -47,14 +47,14 @@ export default function Navbar () {
 
     return (
         <div className={classes.root}>
-            <AppBar position="sticky" style={{ backgroundColor:"#90a4ae", color:"grey"}}>
+            <AppBar position="sticky" style={{ backgroundColor: "#90a4ae", color:"#90caf9"}}>
                 <Toolbar>
                     <div className={classes.nav}>
                         <div className={classes.titleContainer}>
                             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                                 <MenuIcon />
                             </IconButton>
-                            <Link to="/" style={{textDecoration:"none", color:"white"}}>
+                            <Link to="/" style={{ textDecoration: "none", color:"#90caf9", fontWeight:"bold"}}>
                                 <Typography>
                                     EZforms
                                 </Typography>
@@ -69,8 +69,8 @@ export default function Navbar () {
 
                             {isAuthenticated && (
                                 <>
-                                    <Link to="/profile">Profile</Link>
-                                    <Link to="/external-api">External Api</Link>
+                                    <Link to="/profile" style={{ textDecoration: "none", color: "#90caf9", fontWeight: "bold" }}>Profile</Link>
+                                    <Link to="/external-api" style={{ textDecoration: "none", color: "#90caf9", fontWeight: "bold" }}>External Api</Link>
                                 </>
                             )}
                         </div>
