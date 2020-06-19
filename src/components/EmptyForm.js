@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-//Field Imports
-import SingleLineText from './Fields/SingleLineText';
-import MultiLineText from "./Fields/MultiLineText";
-import Number from "./Fields/Number";
-import Date from "./Fields/Date";
-import Time from "./Fields/Time";
+import Field from './Field';
+import fieldData from "./FieldData";
 const useStyles = makeStyles((theme)=>({
     root: {
         display: "flex",
@@ -42,7 +38,9 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 export default function EmptyForm(){
-    const {fields, setFields} = useState([]);
+    const {defaultFields, setDefaultFields} = useState([fieldData.fields]);
+    const { fields, setFields } = useState([]);
+
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -50,11 +48,11 @@ export default function EmptyForm(){
                 <Typography style={{textAlign: "center"}} >
                     Fields will go here
                 </Typography>
-                <SingleLineText/>
-                <MultiLineText/>
-                <Number/>
-                <Date/>
-                <Time/>
+                {fieldData.fields.map((defaultField)=>{
+                    return (
+                        <Field field={defaultField}/>
+                    )
+                })}
 
             </div>
             <div className={classes.formContainer}>

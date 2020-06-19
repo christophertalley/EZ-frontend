@@ -6,7 +6,7 @@ export default function MultiLineText() {
         <TextField
         disabled
         multiline
-        id="multi-line-text-field"
+        id="field-2"
         label="Multi Line Text Field"
         defaultValue="Text input for multiple lines..."
         rows={2}
