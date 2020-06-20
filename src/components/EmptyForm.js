@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Field from './Field';
 import DraggableField from './DraggableField';
 import fieldData from "./FieldData";
+import formData from "./FormData"
 import TextField from '@material-ui/core/TextField';
 // DND Imports
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -68,8 +69,9 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 export default function EmptyForm(){
+    const [state, setState ] = useState(fieldData);
     const [defaultFields, setDefaultFields] = useState(fieldData.fields);
-    const [ fields, setFields ] = useState([]);
+    const [ fields, setFields ] = useState(formData.fields);
     const [formTitle, setFormTitle] = useState('Untitled Form');
     const [formDesc, setFormDesc] = useState('This is a form to...');
     const handleFormTitle = async (e)=> {
@@ -80,7 +82,34 @@ export default function EmptyForm(){
     }
     // DND HOOKS
     const handleDrop = (result)=> {
-        // TO DO
+        const {destination, source, draggableId} = result;
+
+        if (!destination) {
+            return
+        }
+
+        if (destination.droppableId === source.droppableId &&
+            destination.index === source.index) {
+                return
+            }
+
+        const column = state.columns[source.droppableId];
+        const newFieldIds = Array.from(column.fieldIds);
+        newFieldIds.splice(source.index, 1);
+        newFieldIds.splice(destination.id, 0, draggableId);
+
+        const newColumn = {
+            ...column,
+            fieldIds: newFieldIds
+        }
+        const newState = {
+            ...state,
+            columns: {
+                ...state.columns,
+                [newColumn.id]: newColumn
+            }
+        }
+        setState(newState);
     }
 
 
@@ -97,7 +126,7 @@ export default function EmptyForm(){
 
                     </Typography>
                     <Droppable
-                    droppableId={0}
+                    droppableId={state.columns["column-1"].id}
                     >
                     {provided=>{
                         return (
@@ -107,7 +136,7 @@ export default function EmptyForm(){
                                 {...provided.droppableProps}
                             >
                                 {defaultFields.map((defaultField, index)=>{
-                                    const defaultFieldProps = {field: defaultField, disabled:true, index:index, label:defaultField.label}
+                                    const defaultFieldProps = {field: defaultField, disabled:true, index:index, label:defaultField.label};
                                     return (
                                     <DraggableField props={defaultFieldProps}/>)}
                                 )}
@@ -142,7 +171,7 @@ export default function EmptyForm(){
                             rowsMax={5}
                             autoComplete="off"
                             defaultValue={formDesc}/>
-                            <Droppable droppableId={1}>
+                            <Droppable droppableId={state.columns["column-2"].id}>
                                 {(provided)=>{
                                     return (
                                         <div
