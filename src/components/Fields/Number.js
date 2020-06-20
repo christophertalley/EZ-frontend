@@ -8,6 +8,7 @@ export default function Number({ disabled, label }) {
         id="field-3"
         label={label}
         defaultValue={0}
+        autoComplete={false}
         type="number"
         />
     )

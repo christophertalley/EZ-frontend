@@ -47,7 +47,7 @@ export default function Navbar () {
 
     return (
         <div className={classes.root}>
-            <AppBar position="sticky" style={{ backgroundColor: "#90a4ae", color:"#90caf9"}}>
+            <AppBar position="sticky" style={{ backgroundColor: "#90a4ae", color:"#90caf9", borderRadius:"20px"}}>
                 <Toolbar>
                     <div className={classes.nav}>
                         <div className={classes.titleContainer}>

@@ -7,6 +7,7 @@ export default function SingleLineText({disabled, label}){
         disabled={disabled}
         id="field-1"
         label={label}
+        autoComplete={false}
         defaultValue="Text input..." />
     )
 }

@@ -8,6 +8,7 @@ export default function Time({ disabled, label }){
             disabled={disabled}
             label={label}
             type="time"
+            autoComplete={false}
             defaultValue="07:30"
             inputProps={{
                 step: 300, // 5 min

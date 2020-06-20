@@ -10,8 +10,18 @@ const useStyles = makeStyles((theme)=>({
         flexDirection: "row",
         margin: "10px",
         justifyContent: "center",
+        '& label.Mui-focused': {
+            color: '#ff5252',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#ff5252',
+        },
+        '&:hover fieldset': {
+            borderBottomColor: "#ff5252"
+        }
     },
     fieldContainer: {
+        color: "beige",
         backgroundColor: "#90caf9",
         display: "flex",
         flexDirection: "column",
@@ -22,14 +32,25 @@ const useStyles = makeStyles((theme)=>({
         marginRight: "50px",
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '22ch',
-        }
+            width: '35ch',
+            border: "1px solid grey",
+            borderRadius: "5px",
+            padding: "5px",
+            backgroundColor: "#fff3e0"
 
+        },
+    },
+    fieldBox: {
+        display:"flex",
+        flexDirection:"column",
+        alignItems: "center"
     },
     formContainer: {
+        color: "#0277bd",
         backgroundColor: "#ffe0b2",
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
         height: "700px",
         width: "450px",
         borderRadius: "15px",
@@ -37,7 +58,11 @@ const useStyles = makeStyles((theme)=>({
         marginLeft: "50px",
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '22ch',
+            width: '35ch',
+            border: "1px solid grey",
+            borderRadius: "5px",
+            padding: "5px",
+            backgroundColor: "#e3f2fd"
         }
     },
 }))
@@ -59,23 +84,45 @@ export default function EmptyForm(){
     return (
         <div className={classes.root}>
             <div className={classes.fieldContainer}>
-                <Typography style={{textAlign: "center"}} >
-                    Select the fields for your new form!
+                <Typography variant="h3" style={{ textAlign: "center", fontSize: "25px", padding:"12px"}} >
+                    Default Fields
                 </Typography>
-                {defaultFields.map((defaultField)=><Field label={defaultField.label} disabled={true} field={defaultField}/>)}
+                <Typography style={{ textAlign: "center" }} >
+                    Select the fields for your form.
+
+                </Typography>
+                <div className={classes.fieldBox}>
+                    {defaultFields.map((defaultField)=><Field label={defaultField.label} disabled={true} field={defaultField}/>)}
+                </div>
 
             </div>
             <div className={classes.formContainer}>
                 <form id="empty">
-                    <Typography style={{ textAlign: "center" }} >
+                    <Typography variant="h3" style={{ textAlign: "center", fontSize:"25px", padding:"12px"}} >
                         {formTitle}
                     </Typography>
                     <Typography style={{ textAlign: "center" }} >
                         {formDesc}
                     </Typography>
-                    <TextField onChange={handleFormTitle} id="form-title" label="Form Title" defaultValue={formTitle} />
-                    <TextField onChange={handleFormDesc} id="form-desc" label="Form Description" defaultValue={formDesc}/>
-                    {fields.map((field)=><Field field={field}/>)}
+                    <div className={classes.fieldBox}>
+                        <TextField
+                        onChange={handleFormTitle}
+                        required
+                        id="form-title"
+                        label="Form Title"
+                        autoComplete="off"
+                        defaultValue={formTitle} />
+                        <TextField
+                        multiline
+                        onChange={handleFormDesc}
+                        id="form-desc"
+                        label="Form Description"
+                        rows={2}
+                        rowsMax={5}
+                        autoComplete="off"
+                        defaultValue={formDesc}/>
+                        {fields.map((field)=><Field field={field}/>)}
+                    </div>
                 </form>
             </div>
         </div>
