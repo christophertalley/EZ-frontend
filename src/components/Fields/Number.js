@@ -1,12 +1,13 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default function Number() {
+export default function Number({ disabled, label }) {
     return (
-        <TextField disabled
+        <TextField
+        disabled={disabled}
         id="field-3"
-        label="Number field"
-        defaultValue="#"
+        label={label}
+        defaultValue={0}
         type="number"
         />
     )

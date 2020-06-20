@@ -1,12 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default function Time(){
+export default function Time({ disabled, label }){
     return (
         <TextField
             id="field-5"
-            disabled
-            label="Time Field"
+            disabled={disabled}
+            label={label}
             type="time"
             defaultValue="07:30"
             inputProps={{
