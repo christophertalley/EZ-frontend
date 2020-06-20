@@ -11,14 +11,11 @@ const useStyles = makeStyles((theme)=>({
         margin: "10px",
         justifyContent: "center",
         '& label.Mui-focused': {
-            color: '#ff5252',
+            color: '#a1887f',
         },
         '& .MuiInput-underline:after': {
-            borderBottomColor: '#ff5252',
+            borderBottomColor: '#a1887f',
         },
-        '&:hover fieldset': {
-            borderBottomColor: "#ff5252"
-        }
     },
     fieldContainer: {
         color: "beige",
