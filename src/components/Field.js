@@ -5,7 +5,8 @@ import Number from "./Fields/Number";
 import Date from "./Fields/Date";
 import Time from "./Fields/Time";
 
-export default function Field({field, label, disabled}){
+export default function Field({props}){
+    const { field, label, disabled } = props;
     switch (field.type) {
         case "singleText":
             return<SingleLineText label={label} disabled={disabled}/>
