@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import MuiEditableLabel from "mui-editable-label";
 
-export default function EditableLabel(){
-    const [text, setText] = useState('Customize Label here...');
+export default function EditableLabel({label}){
+    const [text, setText] = useState(label);
     return (
         <MuiEditableLabel
             initialValue={text}

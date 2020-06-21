@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Field from './Field';
+import DraggableEmptyField from './DraggableEmptyField';
 import DraggableField from './DraggableField';
 import fieldData from "./FieldData";
 import Button from '@material-ui/core/Button';
@@ -103,6 +103,8 @@ export default function EmptyForm(){
     // DND HOOKS
     const handleDrop = (result)=> {
         const {destination, source, draggableId} = result;
+        console.log('dest:', destination);
+        console.log('source:', source);
 
         if (!destination) {
             return
@@ -129,7 +131,7 @@ export default function EmptyForm(){
         const formFields = [...fields];
         formFields.splice(destination.index, 0, state.fields[draggableId]);
         setFields(formFields);
-
+        console.log('fields:', fields);
 
         const newFinish = {
             ...finish,
@@ -149,7 +151,7 @@ export default function EmptyForm(){
         // })
         // setFields(newFields)
         setState(newState);
-
+        console.log('new state:', state);
     }
 
     // useEffect(()=>{
@@ -196,7 +198,7 @@ export default function EmptyForm(){
                             >
                                 {defaultFields.map((defaultField, index)=> {
                                     const defaultFieldProps = {field: defaultField, disabled:true, index:index, label:defaultField.label};
-                                    return <DraggableField key={defaultField.id} props={defaultFieldProps}/>
+                                    return <DraggableEmptyField key={defaultField.id} props={defaultFieldProps}/>
                                     })}
                                 {provided.placeholder}
                             </div>
@@ -242,8 +244,7 @@ export default function EmptyForm(){
                                                 const addedFieldProps = { field: field, disabled: false, index: index};
                                                 return (
                                                     <div className={classes.indivFieldContainer}>
-                                                        <EditableLabel id={field.id} label={field.label} />
-                                                        <Field props={addedFieldProps}/>
+                                                        <DraggableField props={addedFieldProps}/>
                                                     </div>
                                                     )})}
                                             {provided.placeholder}
