@@ -1,13 +1,13 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default function SingleLineText({disabled, label}){
+export default function SingleLineText({field, disabled, label}){
     return (
         <TextField
         disabled={disabled}
-        id="field-1"
+        id={field.id}
         label={label}
-        autoComplete={false}
+        autoComplete="off"
         defaultValue="Text input..." />
     )
 }

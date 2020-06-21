@@ -9,15 +9,15 @@ export default function Field({props}){
     const { field, label, disabled } = props;
     switch (field.type) {
         case "singleText":
-            return<SingleLineText label={label} disabled={disabled}/>
+            return<SingleLineText field={field} label={label} disabled={disabled}/>
         case "multiText":
-            return <MultiLineText label={label} disabled={disabled}/>
+            return <MultiLineText field={field} label={label} disabled={disabled}/>
         case "number":
-            return <Number label={label} disabled={disabled}/>
+            return <Number field={field} label={label} disabled={disabled}/>
         case "date":
-            return <Date label={label} disabled={disabled}/>
+            return <Date field={field} label={label} disabled={disabled}/>
         case "time":
-            return <Time label={label} disabled={disabled}/>
+            return <Time field={field} label={label} disabled={disabled}/>
         default:
             return null;
     }

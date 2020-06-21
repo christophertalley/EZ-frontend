@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Field from './Field';
@@ -69,9 +69,17 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 export default function EmptyForm(){
+    const classes = useStyles();
     const [state, setState ] = useState(fieldData);
-    const [defaultFields, setDefaultFields] = useState(fieldData.fields);
-    const [ fields, setFields ] = useState(formData.fields);
+    // Use state was converting dndfields back to an object, so selectable fields
+    // was an idea to store that in the state
+    const selectableFields = [];
+    const dndFields = state.columns["column-1"].fieldIds.map((fieldId) =>{
+        selectableFields.push(state.fields[fieldId])
+        return state.fields[fieldId]});
+    const [defaultFields, setDefaultFields] = useState(selectableFields);
+    // set fields for empty form
+    const [ fields, setFields ] = useState([]);
     const [formTitle, setFormTitle] = useState('Untitled Form');
     const [formDesc, setFormDesc] = useState('This is a form to...');
     const handleFormTitle = async (e)=> {
@@ -92,28 +100,91 @@ export default function EmptyForm(){
             destination.index === source.index) {
                 return
             }
+        // if (destination.droppableId === 'column-2') {
+        //     const newColumn = state.columns[destination.droppableId];
+        //     const newField = state.fields[draggableId];
+        //     const newColumnFieldIds = Array.from(newColumn.fieldIds);
+        //     newColumnFieldIds.push(newField.id);
+        //     setFields(...fields, newField);
+        // }
+        console.log('source:', source);
+        console.log('destination:', destination);
 
-        const column = state.columns[source.droppableId];
-        const newFieldIds = Array.from(column.fieldIds);
-        newFieldIds.splice(source.index, 1);
-        newFieldIds.splice(destination.id, 0, draggableId);
 
-        const newColumn = {
-            ...column,
-            fieldIds: newFieldIds
+        const start = state.columns[source.droppableId];
+        const finish = state.columns[destination.droppableId];
+        if (start === finish) {
+            return
+        }
+        const startFieldIds = Array.from(start.fieldIds);
+        startFieldIds.splice(source.index);
+        const finishFieldIds = Array.from(finish.fieldIds);
+        finishFieldIds.splice(destination.index, 0, draggableId);
+        const newFinish = {
+            ...finish,
+            fieldIds: finishFieldIds
         }
         const newState = {
             ...state,
             columns: {
                 ...state.columns,
-                [newColumn.id]: newColumn
+                [newFinish.id]: newFinish
             }
         }
         setState(newState);
+
+        // const newFieldIds = Array.from(start.fieldIds);
+        // newFieldIds.splice(source.index, 1);
+        // newFieldIds.splice(destination.id, 0, draggableId);
+
+        // const newColumn = {
+        //     ...start,
+        //     fieldIds: newFieldIds
+        // }
+        // const newState = {
+        //     ...state,
+        //     columns: {
+        //         ...state.columns,
+        //         [newColumn.id]: newColumn
+        //     }
+        // }
+        // const updatedFieldsArray = [];
+        // const updatedFields = newState.columns["column-1"].fieldIds.map((fieldId) => {
+        //     updatedFieldsArray.push(newState.fields[fieldId])
+        //     return newState.fields[fieldId]
+        // });
+        // setDefaultFields(updatedFieldsArray)
+        // setState(newState);
+
     }
+    // useEffect(() => {
+    //     const loadFields = async () => {
+    //         const emptyFields = [];
+    //         const dndFields = state.columns["column-1"].fieldIds.map((fieldId) => {
+    //             emptyFields.push(state.fields[fieldId])
+    //             return state.fields[fieldId]
+    //         });
+    //         setDefaultFields(emptyFields);
+
+    //     }
+    //     loadFields();
+    // }, [state])
+    useEffect(()=>{
+        const addFields = ()=> {
+            const formFields = []
+            const newFields = state.columns["column-2"].fieldIds.map((fieldId) => {
+                formFields.push(state.fields[fieldId])
+                return state.fields[fieldId]
+            })
+            setFields(formFields);
+        }
+        console.log('current State:',state);
+
+        addFields();
+    }, [state.columns["column-2"].fieldIds])
 
 
-    const classes = useStyles();
+
     return (
         <div className={classes.root}>
             <DragDropContext onDragEnd={handleDrop}>
@@ -128,18 +199,18 @@ export default function EmptyForm(){
                     <Droppable
                     droppableId={state.columns["column-1"].id}
                     >
-                    {provided=>{
+                    {provided=> {
                         return (
                             <div
                                 className={classes.fieldBox}
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                             >
-                                {defaultFields.map((defaultField, index)=>{
+                                {defaultFields.map((defaultField, index)=> {
                                     const defaultFieldProps = {field: defaultField, disabled:true, index:index, label:defaultField.label};
-                                    return (
-                                    <DraggableField props={defaultFieldProps}/>)}
-                                )}
+                                    return <DraggableField key={defaultField.id} props={defaultFieldProps}/>
+                                    })}
+                                {provided.placeholder}
                             </div>
                         )
                     }}
@@ -179,7 +250,9 @@ export default function EmptyForm(){
                                         ref={provided.innerRef}
                                         {...provided.droppableProps}
                                         >
-                                            {fields.map((field)=><Field field={field}/>)}
+                                            {fields.map((field, index)=>{
+                                                const addedFieldProps = { field: field, disabled: false, index: index, label: field.label };
+                                                return <Field props={addedFieldProps}/>})}
                                             {provided.placeholder}
                                         </div>
                                     )

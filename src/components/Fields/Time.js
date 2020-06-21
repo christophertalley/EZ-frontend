@@ -1,14 +1,14 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default function Time({ disabled, label }){
+export default function Time({ field, disabled, label }){
     return (
         <TextField
-            id="field-5"
+            id={field.id}
             disabled={disabled}
             label={label}
             type="time"
-            autoComplete={false}
+            autoComplete="off"
             defaultValue="07:30"
             inputProps={{
                 step: 300, // 5 min
