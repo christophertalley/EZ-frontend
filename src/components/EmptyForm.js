@@ -4,8 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import Field from './Field';
 import DraggableField from './DraggableField';
 import fieldData from "./FieldData";
-import formData from "./FormData"
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import EditableLabel from './EditableLabel';
 // DND Imports
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 const useStyles = makeStyles((theme)=>({
@@ -67,6 +68,16 @@ const useStyles = makeStyles((theme)=>({
             backgroundColor: "#e3f2fd"
         }
     },
+    indivFieldContainer: {
+        display:"flex",
+        justifyContent: "start",
+        flexDirection: "column"
+    },
+    submitButton: {
+        '& .MuiButton-root': {
+            color: "#90caf9"
+        }
+    }
 }))
 
 export default function EmptyForm(){
@@ -101,26 +112,25 @@ export default function EmptyForm(){
             destination.index === source.index) {
                 return
             }
-        // if (destination.droppableId === 'column-2') {
-        //     const newColumn = state.columns[destination.droppableId];
-        //     const newField = state.fields[draggableId];
-        //     const newColumnFieldIds = Array.from(newColumn.fieldIds);
-        //     newColumnFieldIds.push(newField.id);
-        //     setFields(...fields, newField);
-        // }
-        console.log('source:', source);
-        console.log('destination:', destination);
-
 
         const start = state.columns[source.droppableId];
         const finish = state.columns[destination.droppableId];
+
         if (start === finish) {
             return
         }
+        // Modifies a copy of data to store in new state
         const startFieldIds = Array.from(start.fieldIds);
         startFieldIds.splice(source.index);
         const finishFieldIds = Array.from(finish.fieldIds);
         finishFieldIds.splice(destination.index, 0, draggableId);
+
+        // Updated fields slice of state
+        const formFields = [...fields];
+        formFields.splice(destination.index, 0, state.fields[draggableId]);
+        setFields(formFields);
+
+
         const newFinish = {
             ...finish,
             fieldIds: finishFieldIds
@@ -132,57 +142,34 @@ export default function EmptyForm(){
                 [newFinish.id]: newFinish
             }
         }
+        // const formFields = []
+        // const newFields = newState.columns["column-2"].fieldIds.map((fieldId) => {
+        //     formFields.push(newState.fields[fieldId])
+        //     return newState.fields[fieldId]
+        // })
+        // setFields(newFields)
         setState(newState);
 
-        // const newFieldIds = Array.from(start.fieldIds);
-        // newFieldIds.splice(source.index, 1);
-        // newFieldIds.splice(destination.id, 0, draggableId);
+    }
 
-        // const newColumn = {
-        //     ...start,
-        //     fieldIds: newFieldIds
-        // }
-        // const newState = {
-        //     ...state,
-        //     columns: {
-        //         ...state.columns,
-        //         [newColumn.id]: newColumn
-        //     }
-        // }
-        // const updatedFieldsArray = [];
-        // const updatedFields = newState.columns["column-1"].fieldIds.map((fieldId) => {
-        //     updatedFieldsArray.push(newState.fields[fieldId])
-        //     return newState.fields[fieldId]
-        // });
-        // setDefaultFields(updatedFieldsArray)
-        // setState(newState);
+    // useEffect(()=>{
+    //     const addFields = ()=> {
+    //         const formFields = [...fields]
+    //         form
+    //         const newFields = state.columns["column-2"].fieldIds.map((fieldId) => {
+    //             formFields.push(state.fields[fieldId])
+    //             return state.fields[fieldId]
+    //         })
+    //         setFields(formFields);
+    //     }
+    //     console.log('current State:',state);
+
+    //     addFields();
+    // }, [state.columns["column-2"].fieldIds])
+    const createNewForm = async (e)=> {
 
     }
-    // useEffect(() => {
-    //     const loadFields = async () => {
-    //         const emptyFields = [];
-    //         const dndFields = state.columns["column-1"].fieldIds.map((fieldId) => {
-    //             emptyFields.push(state.fields[fieldId])
-    //             return state.fields[fieldId]
-    //         });
-    //         setDefaultFields(emptyFields);
 
-    //     }
-    //     loadFields();
-    // }, [state])
-    useEffect(()=>{
-        const addFields = ()=> {
-            const formFields = []
-            const newFields = state.columns["column-2"].fieldIds.map((fieldId) => {
-                formFields.push(state.fields[fieldId])
-                return state.fields[fieldId]
-            })
-            setFields(formFields);
-        }
-        console.log('current State:',state);
-
-        addFields();
-    }, [state.columns["column-2"].fieldIds])
 
 
 
@@ -219,7 +206,7 @@ export default function EmptyForm(){
 
                 </div>
                 <div className={classes.formContainer}>
-                    <form id="empty">
+                    <form onSubmit={createNewForm} id="empty">
                         <Typography variant="h3" style={{ textAlign: "center", fontSize:"25px", padding:"12px"}} >
                             {formTitle}
                         </Typography>
@@ -252,17 +239,25 @@ export default function EmptyForm(){
                                         {...provided.droppableProps}
                                         >
                                             {fields.map((field, index)=>{
-                                                const addedFieldProps = { field: field, disabled: false, index: index, label: field.label };
-                                                return <Field props={addedFieldProps}/>})}
+                                                const addedFieldProps = { field: field, disabled: false, index: index};
+                                                return (
+                                                    <div className={classes.indivFieldContainer}>
+                                                        <EditableLabel id={field.id} label={field.label} />
+                                                        <Field props={addedFieldProps}/>
+                                                    </div>
+                                                    )})}
                                             {provided.placeholder}
                                         </div>
                                     )
                                 }}
                             </Droppable>
                         </div>
+                        <Button
+                        className={classes.submitButton}
+                        type="submit"
+                        >Create Form</Button>
                     </form>
                 </div>
-
             </DragDropContext>
         </div>
     )
