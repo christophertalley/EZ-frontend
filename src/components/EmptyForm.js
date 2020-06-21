@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme)=>({
     fieldBox: {
         display:"flex",
         flexDirection:"column",
-        alignItems: "center"
+        alignItems: "center",
+        minHeight: "200px"
     },
     formContainer: {
         color: "#0277bd",
