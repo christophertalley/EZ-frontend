@@ -6,7 +6,8 @@ import DraggableField from './DraggableField';
 import fieldData from "./FieldData";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import EditableLabel from './EditableLabel';
+import "../styles/empty-form.css";
+
 // DND Imports
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 const useStyles = makeStyles((theme)=>({
@@ -16,57 +17,74 @@ const useStyles = makeStyles((theme)=>({
         margin: "10px",
         justifyContent: "center",
         '& label.Mui-focused': {
-            color: '#a1887f',
+            color: '#90caf9',
         },
         '& .MuiInput-underline:after': {
-            borderBottomColor: '#a1887f',
+            borderBottomColor: '#90caf9',
         },
     },
     fieldContainer: {
         color: "beige",
-        backgroundColor: "#90caf9",
+        backgroundColor: "#6ec6ff",
         display: "flex",
         flexDirection: "column",
-        height: "700px",
-        width: "450px",
+        height: "800px",
+        width: "600px",
         borderRadius: "15px",
         margin: "15px",
         marginRight: "50px",
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '35ch',
+            width: '50ch',
             border: "1px solid grey",
             borderRadius: "5px",
             padding: "5px",
             backgroundColor: "#fff3e0"
 
         },
+        paddingBottom: "10px"
     },
     fieldBox: {
         display:"flex",
         flexDirection:"column",
         alignItems: "center",
-        minHeight: "200px"
+        minHeight: "200px",
+    },
+    dropFieldBox: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "450px",
+        minHeight: "400px",
+        maxHeight: "450px",
+        border: "3px dotted #bbdefb",
+        borderRadius: "10px",
+        overflowY: "auto",
+        flexGrow: 1,
+        padding: "10px",
+        boxSizing: "border-box",
+
     },
     formContainer: {
-        color: "#0277bd",
+        color: "#2196f3",
         backgroundColor: "#ffe0b2",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        height: "700px",
-        width: "450px",
+        height: "800px",
+        width: "600px",
         borderRadius: "15px",
         margin: "15px",
         marginLeft: "50px",
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '35ch',
-            border: "1px solid grey",
+            width: '50ch',
+            border: "2px solid #2196f3",
             borderRadius: "5px",
             padding: "5px",
             backgroundColor: "#e3f2fd"
-        }
+        },
+        paddingBottom: "10px"
     },
     indivFieldContainer: {
         display:"flex",
@@ -74,14 +92,23 @@ const useStyles = makeStyles((theme)=>({
         flexDirection: "column"
     },
     submitButton: {
+        display: "flex",
+        justifyContent: "center",
         '& .MuiButton-root': {
-            color: "#90caf9"
-        }
+            color: "#90caf9",
+            backgroundColor: "#ffffe4",
+            opacity: 0.6
+        },
+        '& .MuiButton-root:hover': {
+            opacity: 1.0
+        },
+        paddingTop: "20px"
     }
 }))
 
 export default function EmptyForm(){
     const classes = useStyles();
+    const [isRequiredCheck, setIsRequiredCheck ] = useState({});
     const [state, setState ] = useState(fieldData);
     // Use state was converting dndfields back to an object, so selectable fields
     // was an idea to store that in the state
@@ -171,7 +198,26 @@ export default function EmptyForm(){
     const createNewForm = async (e)=> {
 
     }
+    useEffect(()=> {
+        const requiredChecker = async ()=> {
+            await console.log(isRequiredCheck);
 
+            const {id, isRequired} = isRequiredCheck;
+
+            const newState = {
+                ...state,
+                fields: {
+                    ...state.fields,
+                    [id]: {
+                        options: 'required'
+                    }
+                }
+            }
+            setState(newState);
+            console.log(state);
+        }
+        requiredChecker();
+    }, [isRequiredCheck])
 
 
 
@@ -232,16 +278,20 @@ export default function EmptyForm(){
                             rowsMax={5}
                             autoComplete="off"
                             defaultValue={formDesc}/>
+                        <Typography variant="h6" style={{ textAlign: "center", fontWeight: "light" }} >
+                                Drop and customize your fields here!
+                        </Typography>
                             <Droppable droppableId={state.columns["column-2"].id}>
                                 {(provided)=>{
                                     return (
                                         <div
-                                        className={classes.fieldBox}
+                                        id="drop-field-box"
+                                        className={classes.dropFieldBox}
                                         ref={provided.innerRef}
                                         {...provided.droppableProps}
                                         >
                                             {fields.map((field, index)=>{
-                                                const addedFieldProps = { field: field, disabled: false, index: index};
+                                                const addedFieldProps = { field: field, disabled: false, index: index, setIsRequiredCheck: setIsRequiredCheck};
                                                 return (
                                                     <div className={classes.indivFieldContainer}>
                                                         <DraggableField props={addedFieldProps}/>
@@ -253,10 +303,11 @@ export default function EmptyForm(){
                                 }}
                             </Droppable>
                         </div>
-                        <Button
-                        className={classes.submitButton}
-                        type="submit"
-                        >Create Form</Button>
+                        <div className={classes.submitButton}>
+                            <Button
+                            type="submit"
+                            >Create Form</Button>
+                        </div>
                     </form>
                 </div>
             </DragDropContext>

@@ -1,9 +1,10 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default function Date({ field, disabled, label }) {
+export default function Date({ field, disabled, label, required }) {
     return (
         <TextField
+        required={required}
         disabled={disabled}
         autoComplete="off"
         id={field.id}

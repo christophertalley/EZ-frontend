@@ -5,19 +5,19 @@ import Number from "./Fields/Number";
 import Date from "./Fields/Date";
 import Time from "./Fields/Time";
 
-export default function Field({props}){
+export default function Field({props, required}){
     const { field, label, disabled } = props;
     switch (field.type) {
         case "singleText":
-            return<SingleLineText field={field} label={label} disabled={disabled}/>
+            return<SingleLineText required={required} field={field} label={label} disabled={disabled}/>
         case "multiText":
-            return <MultiLineText field={field} label={label} disabled={disabled}/>
+            return <MultiLineText required={required} field={field} label={label} disabled={disabled}/>
         case "number":
-            return <Number field={field} label={label} disabled={disabled}/>
+            return <Number required={required} field={field} label={label} disabled={disabled}/>
         case "date":
-            return <Date field={field} label={label} disabled={disabled}/>
+            return <Date required={required} field={field} label={label} disabled={disabled}/>
         case "time":
-            return <Time field={field} label={label} disabled={disabled}/>
+            return <Time required={required} field={field} label={label} disabled={disabled}/>
         default:
             return null;
     }

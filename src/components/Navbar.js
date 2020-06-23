@@ -47,7 +47,12 @@ export default function Navbar () {
 
     return (
         <div className={classes.root}>
-            <AppBar position="sticky" style={{ backgroundColor: "#90a4ae", color:"#90caf9", borderRadius:"20px"}}>
+            <AppBar position="sticky" style={{
+                backgroundColor: "#37474f",
+                color:"#90caf9",
+                borderRadius:"20px",
+                boxShadow: "0px 0px 10px rgba(0,0,0,.8)"
+                }}>
                 <Toolbar>
                     <div className={classes.nav}>
                         <div className={classes.titleContainer}>
@@ -55,7 +60,7 @@ export default function Navbar () {
                                 <MenuIcon />
                             </IconButton>
                             <Link to="/" style={{ textDecoration: "none", color:"#90caf9", fontWeight:"bold"}}>
-                                <Typography>
+                                <Typography variant={"h5"}>
                                     EZforms
                                 </Typography>
                             </Link>
