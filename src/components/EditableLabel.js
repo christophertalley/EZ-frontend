@@ -12,9 +12,8 @@ export default function EditableLabel({field, label, setFieldLabel, setLabelUpda
     return (
         <MuiEditableLabel
             initialValue={text}
-            onFocus={value => console.log("on focus: ", value)}
+            onFocus={value => value}
             onBlur={value => {
-                console.log("on blur: ", value);
                 setText(value);
                 if (text !== value) {
                     setFieldLabel({field:field, newLabel:value})

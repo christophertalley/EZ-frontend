@@ -1,4 +1,5 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import DraggableEmptyField from './DraggableEmptyField';
@@ -7,6 +8,8 @@ import fieldData from "./FieldData";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import "../styles/empty-form.css";
+import { useAuth0 } from "../react-auth0-spa";
+import { api } from '../config';
 
 // DND Imports
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -107,7 +110,10 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 export default function EmptyForm(){
+    const { user, isAuthenticated, getTokenSilently, } = useAuth0();
     const classes = useStyles();
+    const [redirect, setRedirect] = useState(false);
+    const [formResId, setFormResId] = useState("");
     const [isRequiredCheck, setIsRequiredCheck ] = useState({});
     const [labelUpdated, setLabelUpdated] = useState(false);
     const [fieldLabel, setFieldLabel] = useState({});
@@ -134,8 +140,6 @@ export default function EmptyForm(){
     // DND HOOKS
     const handleDrop = (result)=> {
         const {destination, source, draggableId} = result;
-        // console.log('dest:', destination);
-        // console.log('source:', source);
 
         if (!destination) {
             return
@@ -162,7 +166,6 @@ export default function EmptyForm(){
         const formFields = [...fields];
         formFields.splice(destination.index, 0, state.fields[draggableId]);
         setFields(formFields);
-        // console.log('fields:', fields);
         const formFieldCount = Object.keys(state.formFields).length;
         const addedFieldId = `form-field-${formFieldCount + 1}`
         const addedField = {
@@ -185,39 +188,14 @@ export default function EmptyForm(){
                 [addedFieldId]: addedField
             }
         }
-        // const formFields = []
-        // const newFields = newState.columns["column-2"].fieldIds.map((fieldId) => {
-        //     formFields.push(newState.fields[fieldId])
-        //     return newState.fields[fieldId]
-        // })
-        // setFields(newFields)
         setState(newState);
         setEmptyFormData(newState.formFields);
-        // console.log('new state:', state);
-    }
-
-    // useEffect(()=>{
-    //     const addFields = ()=> {
-    //         const formFields = [...fields]
-    //         form
-    //         const newFields = state.columns["column-2"].fieldIds.map((fieldId) => {
-    //             formFields.push(state.fields[fieldId])
-    //             return state.fields[fieldId]
-    //         })
-    //         setFields(formFields);
-    //     }
-    //     console.log('current State:',state);
-
-    //     addFields();
-    // }, [state.columns["column-2"].fieldIds])
-
-
-    const createNewForm = async (e)=> {
 
     }
+
     useEffect(()=> {
         const requiredChecker = ()=> {
-            console.log(isRequiredCheck);
+
 
             const {field, isRequired} = isRequiredCheck;
             if (isRequired){
@@ -247,7 +225,6 @@ export default function EmptyForm(){
         const labelChanger = ()=> {
             if ( labelUpdated && fieldLabel !== {}) {
                 const {field, newLabel} = fieldLabel;
-                console.log('label update',field, newLabel);
                 const formFieldCount = Object.keys(state.formFields).length;
                 const addedFieldId = `form-field-${formFieldCount}`
                 const newState = {
@@ -270,19 +247,58 @@ export default function EmptyForm(){
     },[labelUpdated])
 
     useEffect(() => {
-        // console.log('fields length',fields.length);
-        // // async function to store form data after state is rendered
-        // const formDataStorer = async()=>{
-        //     if (state.formFields) {
-        //         await setEmptyFormData(state.formFields);
-        //     }
-        // }
 
-
-        // formDataStorer();
         console.log('form data',emptyFormData);
-    }, [state])
+    }, [state]);
 
+    const createNewForm = async (e) => {
+        e.preventDefault();
+        console.log(emptyFormData);
+        console.log(user.userId);
+
+        if (isAuthenticated) {
+            const token = await getTokenSilently();
+            console.log('token:', token);
+
+            const body = {
+                title: formTitle,
+                desc: formDesc,
+                formData: emptyFormData,
+                userId:user.userId
+            };
+            console.log(api);
+
+            try {
+                const res = await fetch(`${api}/forms`, {
+                    method: "POST",
+                    body: JSON.stringify(body),
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                })
+                const result = await res.json();
+                const route = `/form/${result.formId}`;
+                setFormResId(result.formId);
+                setRedirect(true);
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
+
+    }
+    if (redirect) {
+        return (
+            <Redirect
+                push
+                to={{
+                    pathname: `/form/${formResId}`,
+                    state: { formId: formResId }
+                }}
+            />
+        )
+    }
     return (
         <div className={classes.root}>
             <DragDropContext onDragEnd={handleDrop}>
@@ -361,9 +377,10 @@ export default function EmptyForm(){
                                                     setFieldLabel: setFieldLabel,
                                                     setLabelUpdated: setLabelUpdated
                                                     };
+                                                    const keyNumber = Number(field.id) + Number(index);
                                                 return (
                                                     <div className={classes.indivFieldContainer}>
-                                                        <DraggableField key={field.id} props={addedFieldProps}/>
+                                                        <DraggableField key={keyNumber} props={addedFieldProps}/>
                                                     </div>
                                                     )})}
                                             {provided.placeholder}

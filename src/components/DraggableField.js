@@ -18,19 +18,13 @@ export default function DraggableField({ props }) {
             const check = { field:field, isRequired: true}
             setIsRequired(true);
             setIsRequiredCheck(check);
-            console.log('here',isRequired);
         } else {
             const check = { field: field, isRequired: false }
             setIsRequiredCheck(check);
             setIsRequired(false)
-            console.log('else',isRequired);
         }
-        // setIsRequired(!isRequired);
     };
-    // useEffect(()=>{
 
-    // },[isRequired])
-    console.log(isRequired);
 
     return (
         <Draggable
