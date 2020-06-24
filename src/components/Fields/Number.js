@@ -1,14 +1,15 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default function Number({ disabled, label }) {
+export default function Number({ field, disabled, label, required }) {
     return (
         <TextField
+        required={required}
         disabled={disabled}
-        id="field-3"
+        id={field.id}
         label={label}
         defaultValue={0}
-        autoComplete={false}
+        autoComplete="off"
         type="number"
         />
     )

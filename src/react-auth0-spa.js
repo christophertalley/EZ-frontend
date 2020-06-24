@@ -48,7 +48,6 @@ export const Auth0Provider = ({
                     }
                 })
                 const apiRes = await res.json();
-                console.log(apiRes)
                 setUser({...user, userId: apiRes.userId});
             }
             setLoading(false);

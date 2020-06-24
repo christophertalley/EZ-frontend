@@ -9,6 +9,7 @@ import ExternalApi from "./views/ExternalApi";
 import Home from "./components/Home";
 import "./styles/index.css"
 import EmptyForm from "./components/EmptyForm";
+import Form from "./components/Form";
 
 export default function App() {
   const { loading } = useAuth0();
@@ -25,6 +26,7 @@ export default function App() {
       </header>
       <Switch>
         <Route exact path="/" component={Home}/>
+        <Route path="/form/:formId" component={Form}/>
         <PrivateRoute path ="/profile" component={Profile}/>
         <PrivateRoute path="/form-builder" component={EmptyForm}/>
         <PrivateRoute path ="/external-api" component={ExternalApi}/>
