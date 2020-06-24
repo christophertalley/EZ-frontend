@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import DraggableEmptyField from './DraggableEmptyField';
@@ -109,6 +109,9 @@ const useStyles = makeStyles((theme)=>({
 export default function EmptyForm(){
     const classes = useStyles();
     const [isRequiredCheck, setIsRequiredCheck ] = useState({});
+    const [labelUpdated, setLabelUpdated] = useState(false);
+    const [fieldLabel, setFieldLabel] = useState({});
+    const RequiredContext = React.createContext(setIsRequiredCheck);
     const [state, setState ] = useState(fieldData);
     // Use state was converting dndfields back to an object, so selectable fields
     // was an idea to store that in the state
@@ -130,8 +133,8 @@ export default function EmptyForm(){
     // DND HOOKS
     const handleDrop = (result)=> {
         const {destination, source, draggableId} = result;
-        console.log('dest:', destination);
-        console.log('source:', source);
+        // console.log('dest:', destination);
+        // console.log('source:', source);
 
         if (!destination) {
             return
@@ -158,7 +161,13 @@ export default function EmptyForm(){
         const formFields = [...fields];
         formFields.splice(destination.index, 0, state.fields[draggableId]);
         setFields(formFields);
-        console.log('fields:', fields);
+        // console.log('fields:', fields);
+        const formFieldCount = Object.keys(state.formFields).length;
+        const addedFieldId = `form-field-${formFieldCount + 1}`
+        const addedField = {
+            ...state.fields[draggableId],
+            id: addedFieldId,
+        }
 
         const newFinish = {
             ...finish,
@@ -169,6 +178,10 @@ export default function EmptyForm(){
             columns: {
                 ...state.columns,
                 [newFinish.id]: newFinish
+            },
+            formFields: {
+                ...state.formFields,
+                [addedFieldId]: addedField
             }
         }
         // const formFields = []
@@ -178,7 +191,7 @@ export default function EmptyForm(){
         // })
         // setFields(newFields)
         setState(newState);
-        console.log('new state:', state);
+        // console.log('new state:', state);
     }
 
     // useEffect(()=>{
@@ -195,30 +208,69 @@ export default function EmptyForm(){
 
     //     addFields();
     // }, [state.columns["column-2"].fieldIds])
+
+
     const createNewForm = async (e)=> {
 
     }
     useEffect(()=> {
-        const requiredChecker = async ()=> {
-            await console.log(isRequiredCheck);
+        const requiredChecker = ()=> {
+            console.log(isRequiredCheck);
 
-            const {id, isRequired} = isRequiredCheck;
+            const {field, isRequired} = isRequiredCheck;
+            if (isRequired){
+                const formFieldCount = Object.keys(state.formFields).length;
+                const addedFieldId = `form-field-${formFieldCount}`
+                const newState = {
+                    ...state,
+                    formFields: {
+                        ...state.formFields,
+                        [addedFieldId]: {
+                            ...state.formFields[addedFieldId],
+                            options: [...field.options, 'required']
+                        },
 
-            const newState = {
-                ...state,
-                fields: {
-                    ...state.fields,
-                    [id]: {
-                        options: 'required'
                     }
                 }
+
+                setState(newState);
             }
-            setState(newState);
-            console.log(state);
         }
         requiredChecker();
     }, [isRequiredCheck])
 
+
+    useEffect(()=>{
+        const labelChanger = ()=> {
+            if ( labelUpdated && fieldLabel !== {}) {
+                const {field, newLabel} = fieldLabel;
+                console.log('label update',field, newLabel);
+                const formFieldCount = Object.keys(state.formFields).length;
+                const addedFieldId = `form-field-${formFieldCount}`
+                const newState = {
+                    ...state,
+                    formFields: {
+                        ...state.formFields,
+                        [addedFieldId]: {
+                            id: field.id,
+                            type: field.type,
+                            label: newLabel,
+                            options: field.options
+                        }
+                    }
+                }
+                setState(newState);
+            }
+        }
+        labelChanger();
+    },[labelUpdated])
+
+    useEffect(() => {
+        console.log('fields length',fields.length);
+
+        console.log('state after render:', state);
+        console.log(fieldLabel);
+    }, [state])
 
 
     return (
@@ -291,10 +343,17 @@ export default function EmptyForm(){
                                         {...provided.droppableProps}
                                         >
                                             {fields.map((field, index)=>{
-                                                const addedFieldProps = { field: field, disabled: false, index: index, setIsRequiredCheck: setIsRequiredCheck};
+                                                const addedFieldProps = {
+                                                    field: field,
+                                                    disabled: false,
+                                                    index: index,
+                                                    setIsRequiredCheck: setIsRequiredCheck,
+                                                    setFieldLabel: setFieldLabel,
+                                                    setLabelUpdated: setLabelUpdated
+                                                    };
                                                 return (
                                                     <div className={classes.indivFieldContainer}>
-                                                        <DraggableField props={addedFieldProps}/>
+                                                        <DraggableField key={field.id} props={addedFieldProps}/>
                                                     </div>
                                                     )})}
                                             {provided.placeholder}

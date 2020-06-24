@@ -6,6 +6,9 @@ const fieldData = {
         'field-4': { id: 'field-4', type: 'date', label: "Date field", options: [] },
         'field-5': { id: 'field-5', type: 'time', label: "Time field", options: [] },
     },
+    formFields: {
+
+    },
     columns: {
         'column-1': {
             id: 'column-1',
