@@ -113,6 +113,7 @@ export default function EmptyForm(){
     const [fieldLabel, setFieldLabel] = useState({});
     const RequiredContext = React.createContext(setIsRequiredCheck);
     const [state, setState ] = useState(fieldData);
+    const [emptyFormData, setEmptyFormData] = useState(null);
     // Use state was converting dndfields back to an object, so selectable fields
     // was an idea to store that in the state
     const selectableFields = [];
@@ -191,6 +192,7 @@ export default function EmptyForm(){
         // })
         // setFields(newFields)
         setState(newState);
+        setEmptyFormData(newState.formFields);
         // console.log('new state:', state);
     }
 
@@ -234,6 +236,7 @@ export default function EmptyForm(){
                 }
 
                 setState(newState);
+                setEmptyFormData(newState.formFields);
             }
         }
         requiredChecker();
@@ -252,7 +255,7 @@ export default function EmptyForm(){
                     formFields: {
                         ...state.formFields,
                         [addedFieldId]: {
-                            id: field.id,
+                            id: addedFieldId,
                             type: field.type,
                             label: newLabel,
                             options: field.options
@@ -260,18 +263,25 @@ export default function EmptyForm(){
                     }
                 }
                 setState(newState);
+                setEmptyFormData(newState.formFields);
             }
         }
         labelChanger();
     },[labelUpdated])
 
     useEffect(() => {
-        console.log('fields length',fields.length);
+        // console.log('fields length',fields.length);
+        // // async function to store form data after state is rendered
+        // const formDataStorer = async()=>{
+        //     if (state.formFields) {
+        //         await setEmptyFormData(state.formFields);
+        //     }
+        // }
 
-        console.log('state after render:', state);
-        console.log(fieldLabel);
+
+        // formDataStorer();
+        console.log('form data',emptyFormData);
     }, [state])
-
 
     return (
         <div className={classes.root}>
