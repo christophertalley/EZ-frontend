@@ -5,8 +5,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,7 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            flexShrink: 1
         },
         nav: {
             display: "flex",
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: "space-between",
             width: "100vw",
             padding: "10px"
-        }
+        },
     }),
 );
 
@@ -49,34 +52,43 @@ export default function Navbar () {
     return (
         <div className={classes.root}>
             <AppBar position="sticky" style={{
-                backgroundColor: "#37474f",
-                color:"#90caf9",
+                backgroundColor: "#34515e",
+                color:"#bdbdbd",
                 borderRadius:"20px",
                 boxShadow: "0px 0px 10px rgba(0,0,0,.8)"
                 }}>
                 <Toolbar>
                     <div className={classes.nav}>
                         <div className={classes.titleContainer}>
-                            <Link to="/" style={{ textDecoration: "none", color:"#90caf9", fontWeight:"bold"}}>
-                                <Typography variant={"h5"}>
+                            <Link to="/" style={{ fontFamily: "'Roboto Mono', monospace", textDecoration: "none", color:"#64b5f6", fontWeight:"bold"}}>
+                                <Typography style={{ fontFamily: "'Roboto Mono', monospace"}} variant={"h5"}>
                                     EZforms
                                 </Typography>
                             </Link>
                         </div>
+
+                            {!isAuthenticated && (
+                                <IconButton style={{marginLeft:"91%"}} onClick={() => loginWithRedirect({})}>
+                                    <EmojiPeopleIcon style={{ color: "#64b5f6"}}/>
+                                    <Typography style={{ color: "#64b5f6" }}>
+                                        Login
+                                    </Typography>
+                                </IconButton>
+                            )}
+
                         <div className={classes.linkContainer}>
                             {isAuthenticated && (
                                 <>
-                                    <Link to="/admin" style={{ textDecoration: "none", color: "#90caf9", fontWeight: "bold" }}>My Forms</Link>
-                                    <Link to="/external-api" style={{ textDecoration: "none", color: "#90caf9", fontWeight: "bold" }}>External Api</Link>
+                                    <Link to="/admin" style={{ textDecoration: "none", color: "#64b5f6", fontWeight: "bold" }}>My Forms</Link>
+                                    <Link to="/external-api" style={{ textDecoration: "none", color: "#64b5f6", fontWeight: "bold" }}>External Api</Link>
                                 </>
                             )}
 
-                            {!isAuthenticated && (
-                                <button onClick={() => loginWithRedirect({})}>Log in</button>
+                            {isAuthenticated && (
+                                <IconButton  onClick={() => logout()}>
+                                    <ExitToAppIcon style={{ color:"#64b5f6"}}/>
+                                </IconButton>
                             )}
-
-                            {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
-
                         </div>
                     </div>
                 </Toolbar>

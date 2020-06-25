@@ -11,6 +11,7 @@ import "./styles/index.css"
 import EmptyForm from "./components/EmptyForm";
 import Form from "./components/Form";
 import FormAdmin from "./components/FormAdmin";
+import FormAnalytics from './components/FormAnalytics';
 
 export default function App() {
   const { loading } = useAuth0();
@@ -27,7 +28,8 @@ export default function App() {
       </header>
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route path="/form/:formId" component={Form}/>
+        <Route exact path="/form/:formId" component={Form}/>
+        <PrivateRoute exact path="/form/:formId/analyze" component={FormAnalytics}/>
         <PrivateRoute path="/admin" component={FormAdmin}/>
         <PrivateRoute path ="/profile" component={Profile}/>
         <PrivateRoute path="/form-builder" component={EmptyForm}/>

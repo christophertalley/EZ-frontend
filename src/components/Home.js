@@ -39,7 +39,7 @@ export default function Home(){
     return (
         <div id="home-container" className={classes.root}>
             <div id="splash-page" className={classes.welcomeContainer}>
-                <Typography variant="h4" style={{ textAlign: "center", padding: "10px", color:"#f7f7ff"}} >
+                <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace",textAlign: "center", padding: "10px", color:"#f7f7ff"}} >
                     Welcome to EZ Forms. If you need to generate a form  in a quick and hassle-free manner, then you've come to the right place!
                 </Typography>
                 <img style={{ width: "100%", maxWidth: "1100px", borderRadius: "50px", objectFit: "cover"}}  src={require('../images/splashImage.gif')} alt="loading..." />
@@ -47,7 +47,7 @@ export default function Home(){
                     isAuthenticated &&
                     <Button>
                         <Link style={{ fontFamily: "inherit", color: "#d0edff", textDecoration:"none",}} to="/form-builder">
-                        <Typography variant="h5" style={{ textAlign: "center", padding: "10px" }}>
+                            <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace",textAlign: "center", padding: "10px" }}>
                             Create
                         </Typography>
                     </Link>
@@ -55,7 +55,7 @@ export default function Home(){
                 }
                 {
                     !isAuthenticated &&
-                    <Typography variant="h5" style={{ textAlign: "center", padding: "10px" }}>
+                    <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace",textAlign: "center", padding: "10px" }}>
                         To get started, create an account or sign in!
                     </Typography>
                 }

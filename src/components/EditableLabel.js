@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import MuiEditableLabel from "mui-editable-label";
 
-export default function EditableLabel({field, label, setFieldLabel, setLabelUpdated}){
+export default function EditableLabel({index, field, label, setFieldLabel, setLabelUpdated}){
     const [text, setText] = useState(label);
     // const handleLabelChange = async (e)=> {
     //     if (text !== label) {
@@ -16,7 +16,7 @@ export default function EditableLabel({field, label, setFieldLabel, setLabelUpda
             onBlur={value => {
                 setText(value);
                 if (text !== value) {
-                    setFieldLabel({field:field, newLabel:value})
+                    setFieldLabel({index:index, field:field, newLabel:value})
                     setLabelUpdated(true);
                 }
             }}

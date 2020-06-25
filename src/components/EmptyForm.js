@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme)=>({
         marginRight: "50px",
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '50ch',
+            width: '40ch',
             border: "1px solid grey",
             borderRadius: "5px",
             padding: "5px",
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme)=>({
         marginLeft: "50px",
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '50ch',
+            width: '40ch',
             border: "2px solid #2196f3",
             borderRadius: "5px",
             padding: "5px",
@@ -167,7 +167,7 @@ export default function EmptyForm(){
         formFields.splice(destination.index, 0, state.fields[draggableId]);
         setFields(formFields);
         const formFieldCount = Object.keys(state.formFields).length;
-        const addedFieldId = `form-field-${formFieldCount + 1}`
+        const addedFieldId = `form-field-${formFieldCount + 1}`;
         const addedField = {
             ...state.fields[draggableId],
             id: addedFieldId,
@@ -199,10 +199,10 @@ export default function EmptyForm(){
         const requiredChecker = ()=> {
 
 
-            const {field, isRequired} = isRequiredCheck;
+            const {index, isRequired} = isRequiredCheck;
             if (isRequired){
-                const formFieldCount = Object.keys(state.formFields).length;
-                const addedFieldId = `form-field-${formFieldCount}`
+                // const formFieldCount = Object.keys(state.formFields).length;
+                const addedFieldId = `form-field-${index + 1}`;
                 const newState = {
                     ...state,
                     formFields: {
@@ -227,11 +227,11 @@ export default function EmptyForm(){
     useEffect(()=>{
         const labelChanger = ()=> {
             if ( labelUpdated && fieldLabel !== {}) {
-                const {field, newLabel} = fieldLabel;
-                const formFieldCount = Object.keys(state.formFields).length;
-                console.log('labelBeing changed id:', field.id);
+                const {index, field, newLabel} = fieldLabel;
+                // const formFieldCount = Object.keys(state.formFields).length;
 
-                const addedFieldId = `form-field-${formFieldCount}`
+                const addedFieldId = `form-field-${index + 1}`;
+                console.log(addedFieldId)
                 if (addedFieldId in state.formFields) {
                     const newState = {
                         ...state,
@@ -326,10 +326,10 @@ export default function EmptyForm(){
         <div className={classes.root}>
             <DragDropContext onDragEnd={handleDrop}>
                 <div className={classes.fieldContainer}>
-                    <Typography variant="h3" style={{ textAlign: "center", fontSize: "25px", padding:"12px"}} >
+                    <Typography variant="h3" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", fontSize: "25px", padding:"12px"}} >
                         Default Fields
                     </Typography>
-                    <Typography style={{ textAlign: "center" }} >
+                    <Typography style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center" }} >
                         Select the fields for your form.
 
                     </Typography>
@@ -356,10 +356,10 @@ export default function EmptyForm(){
                 </div>
                 <div className={classes.formContainer}>
                     <form onSubmit={createNewForm} id="empty">
-                        <Typography variant="h3" style={{ textAlign: "center", fontSize:"25px", padding:"12px"}} >
+                        <Typography variant="h3" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", fontSize:"25px", padding:"12px"}} >
                             {formTitle}
                         </Typography>
-                        <Typography style={{ textAlign: "center" }} >
+                        <Typography style={{ fontFamily: "'Roboto Mono', monospace",textAlign: "center" }} >
                             {formDesc}
                         </Typography>
                         <div className={classes.fieldBox}>
@@ -379,7 +379,7 @@ export default function EmptyForm(){
                             rowsMax={5}
                             autoComplete="off"
                             defaultValue={formDesc}/>
-                        <Typography variant="h6" style={{ textAlign: "center", fontWeight: "light" }} >
+                            <Typography variant="h6" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", fontWeight: "light" }} >
                                 Drop and customize your fields here!
                         </Typography>
                             <Droppable droppableId={state.columns["column-2"].id}>
@@ -416,6 +416,7 @@ export default function EmptyForm(){
                         <div className={classes.submitButton}>
                             <Button
                             type="submit"
+                            style={{ fontFamily: "'Roboto Mono', monospace"}}
                             >Create Form</Button>
                         </div>
                     </form>

@@ -15,11 +15,11 @@ export default function DraggableField({ props }) {
     const handleChange = (event) => {
 
         if (!isRequired) {
-            const check = { field:field, isRequired: true}
+            const check = { field:field, index:index, isRequired: true}
             setIsRequired(true);
             setIsRequiredCheck(check);
         } else {
-            const check = { field: field, isRequired: false }
+            const check = { field: field, index:index, isRequired: false }
             setIsRequiredCheck(check);
             setIsRequired(false)
         }
@@ -43,7 +43,7 @@ export default function DraggableField({ props }) {
                             justifyContent: "start",
                             flexDirection: "column",}}
                     >
-                        <EditableLabel field={field} setFieldLabel={setFieldLabel} setLabelUpdated={setLabelUpdated} label={field.label}/>
+                        <EditableLabel index={index} field={field} setFieldLabel={setFieldLabel} setLabelUpdated={setLabelUpdated} label={field.label}/>
                         <Field props={props} required={isRequired} />
                         <div style={{
                             display: "flex",

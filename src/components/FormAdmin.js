@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth0 } from "../react-auth0-spa";
 import { makeStyles } from '@material-ui/core/styles';
 import { api } from '../config';
@@ -75,7 +76,7 @@ export default function FormAdmin(){
     return (
         <div className={classes.root}>
             <div className={classes.title}>
-                <Typography variant="h3" style={{ fontSize: "40px", color: "#8c94ef"}}>
+                <Typography variant="h3" style={{ fontFamily: "'Roboto Mono', monospace", fontSize: "40px", color: "#8c94ef",}}>
                     Manage your forms
                 </Typography>
             </div>
@@ -83,14 +84,19 @@ export default function FormAdmin(){
                 { fetched && (
                     forms.map((form)=>{
                         return (
-                            <Card>
+                            <Card id={form._id}>
                                 <CardContent>
-                                    <Typography variant="h5" style={{ textAlign: "center", padding: "5px" }}>
+                                    <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "5px" }}>
                                         {form.title}
                                     </Typography>
-                                    <Typography variant="h6" style={{ fontSize: "15px", textAlign: "center", padding: "5px"}}>
+                                    <Typography variant="h6" style={{ fontFamily: "'Roboto Mono', monospace", fontSize: "15px", textAlign: "center", padding: "5px"}}>
                                         {form.desc}
                                     </Typography>
+                                    <Link to={`/form/${form._id}/analyze`} style={{ fontFamily: "'Roboto Mono', monospace", textDecoration: "none", color: "#64b5f6", fontWeight: "bold" }}>
+                                        <Typography style={{ fontFamily: "'Roboto Mono', monospace" }} variant={"h5"}>
+                                            Analyze
+                                        </Typography>
+                                    </Link>
                                 </CardContent>
                             </Card>
                         )
