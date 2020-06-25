@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: "center"
         },
         linkContainer: {
-            width: "200px",
+            width: "300px",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "100vw"
+            width: "100vw",
+            padding: "10px"
         }
     }),
 );
@@ -56,9 +57,6 @@ export default function Navbar () {
                 <Toolbar>
                     <div className={classes.nav}>
                         <div className={classes.titleContainer}>
-                            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                                <MenuIcon />
-                            </IconButton>
                             <Link to="/" style={{ textDecoration: "none", color:"#90caf9", fontWeight:"bold"}}>
                                 <Typography variant={"h5"}>
                                     EZforms
@@ -66,18 +64,19 @@ export default function Navbar () {
                             </Link>
                         </div>
                         <div className={classes.linkContainer}>
+                            {isAuthenticated && (
+                                <>
+                                    <Link to="/admin" style={{ textDecoration: "none", color: "#90caf9", fontWeight: "bold" }}>My Forms</Link>
+                                    <Link to="/external-api" style={{ textDecoration: "none", color: "#90caf9", fontWeight: "bold" }}>External Api</Link>
+                                </>
+                            )}
+
                             {!isAuthenticated && (
                                 <button onClick={() => loginWithRedirect({})}>Log in</button>
                             )}
 
                             {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
 
-                            {isAuthenticated && (
-                                <>
-                                    <Link to="/profile" style={{ textDecoration: "none", color: "#90caf9", fontWeight: "bold" }}>Profile</Link>
-                                    <Link to="/external-api" style={{ textDecoration: "none", color: "#90caf9", fontWeight: "bold" }}>External Api</Link>
-                                </>
-                            )}
                         </div>
                     </div>
                 </Toolbar>

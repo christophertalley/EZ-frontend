@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme)=>({
     },
     fieldContainer: {
         color: "beige",
-        backgroundColor: "#6ec6ff",
+        backgroundColor: "#8c94ef",
         display: "flex",
         flexDirection: "column",
         height: "800px",
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme)=>({
     },
     formContainer: {
         color: "#2196f3",
-        backgroundColor: "#ffe0b2",
+        backgroundColor: "#eacdab",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -189,6 +189,8 @@ export default function EmptyForm(){
             }
         }
         setState(newState);
+        console.log('this',newState);
+
         setEmptyFormData(newState.formFields);
 
     }
@@ -207,7 +209,7 @@ export default function EmptyForm(){
                         ...state.formFields,
                         [addedFieldId]: {
                             ...state.formFields[addedFieldId],
-                            options: [...field.options, 'required']
+                            options: ['required']
                         },
 
                     }
@@ -215,6 +217,7 @@ export default function EmptyForm(){
 
                 setState(newState);
                 setEmptyFormData(newState.formFields);
+                setIsRequiredCheck({});
             }
         }
         requiredChecker();
@@ -226,21 +229,42 @@ export default function EmptyForm(){
             if ( labelUpdated && fieldLabel !== {}) {
                 const {field, newLabel} = fieldLabel;
                 const formFieldCount = Object.keys(state.formFields).length;
+                console.log('labelBeing changed id:', field.id);
+
                 const addedFieldId = `form-field-${formFieldCount}`
-                const newState = {
-                    ...state,
-                    formFields: {
-                        ...state.formFields,
-                        [addedFieldId]: {
-                            id: addedFieldId,
-                            type: field.type,
-                            label: newLabel,
-                            options: field.options
+                if (addedFieldId in state.formFields) {
+                    const newState = {
+                        ...state,
+                        formFields: {
+                            ...state.formFields,
+                            [addedFieldId]: {
+                                ...state.formFields[addedFieldId],
+                                label: newLabel
+                            }
                         }
                     }
+                    setState(newState);
+                    setEmptyFormData(newState.formFields);
+                    setFieldLabel({});
+                    setLabelUpdated(false);
+                } else {
+                    const newState = {
+                        ...state,
+                        formFields: {
+                            ...state.formFields,
+                            [addedFieldId]: {
+                                id: addedFieldId,
+                                type: field.type,
+                                label: newLabel,
+                                options: field.options
+                            }
+                        }
+                    }
+                    setState(newState);
+                    setEmptyFormData(newState.formFields);
+                    setFieldLabel({});
+                    setLabelUpdated(false);
                 }
-                setState(newState);
-                setEmptyFormData(newState.formFields);
             }
         }
         labelChanger();
@@ -253,15 +277,13 @@ export default function EmptyForm(){
 
     const createNewForm = async (e) => {
         e.preventDefault();
-        console.log(emptyFormData);
-        console.log(user.userId);
+
 
         if (emptyFormData === null){
             alert('You need to add a field first!')
         } else {
             if (isAuthenticated) {
             const token = await getTokenSilently();
-            console.log('token:', token);
 
             const body = {
                 title: formTitle,
@@ -269,7 +291,6 @@ export default function EmptyForm(){
                 formData: emptyFormData,
                 userId:user.userId
             };
-            console.log(api);
 
             try {
                 const res = await fetch(`${api}/forms`, {
@@ -297,7 +318,6 @@ export default function EmptyForm(){
                 push
                 to={{
                     pathname: `/form/${formResId}`,
-                    state: { formId: formResId }
                 }}
             />
         )
@@ -366,6 +386,7 @@ export default function EmptyForm(){
                                 {(provided)=>{
                                     return (
                                         <div
+                                        key="field-container"
                                         id="drop-field-box"
                                         className={classes.dropFieldBox}
                                         ref={provided.innerRef}
@@ -382,7 +403,7 @@ export default function EmptyForm(){
                                                     };
                                                     const keyNumber = Number(field.id) + Number(index);
                                                 return (
-                                                    <div key={keyNumber} className={classes.indivFieldContainer}>
+                                                    <div key={Number(keyNumber)} className={classes.indivFieldContainer}>
                                                         <DraggableField key={keyNumber} props={addedFieldProps}/>
                                                     </div>
                                                     )})}

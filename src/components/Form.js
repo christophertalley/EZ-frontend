@@ -86,7 +86,6 @@ export default function Form(){
                 if (form !== null) {
                     for (const field in form.formData) {
                         dataFields.push({ ...form.formData[field] })
-                        console.log('data field:', { [field]: form.formData[field] });
                     }
                     setFields(dataFields);
                 }
@@ -124,7 +123,6 @@ export default function Form(){
                     <form className={classes.form} onSubmit={handleSubmit}>
                         <div className={classes.fieldsContainer} >
                         {fields.map((field)=> {
-                                console.log(field.label)
                                 const props = {field: field, label:field.label, disabled:false }
                                 if (field.options.length > 0) {
                                     return <Field key={field.id} props={props} required={true} />;

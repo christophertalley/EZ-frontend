@@ -17,14 +17,19 @@ const useStyles = makeStyles((theme)=>({
         marginTop: "30px",
         display:"flex",
         flexDirection: "column",
-        backgroundColor: "#0277bd",
+        backgroundColor: "#5a66bc",
         color: "beige",
         width: "1300px",
         alignItems: "center",
         borderRadius: "50px",
         boxSizing: "borderBox",
         overflowY: "hidden",
-        boxShadow: "0px 1px 13px 0px rgba(50, 50, 50, 0.72)"
+        boxShadow: "0px 1px 13px 0px rgba(50, 50, 50, 0.72)",
+        '& .MuiButton-root': {
+            backgroundColor: "#00396c",
+            marginTop: "12px",
+            borderRadius: "15px"
+        }
 }
 }));
 
@@ -34,14 +39,14 @@ export default function Home(){
     return (
         <div id="home-container" className={classes.root}>
             <div id="splash-page" className={classes.welcomeContainer}>
-                <Typography variant="h4" style={{ textAlign: "center", padding: "10px" }} >
+                <Typography variant="h4" style={{ textAlign: "center", padding: "10px", color:"#f7f7ff"}} >
                     Welcome to EZ Forms. If you need to generate a form  in a quick and hassle-free manner, then you've come to the right place!
                 </Typography>
                 <img style={{ width: "100%", maxWidth: "1100px", borderRadius: "50px", objectFit: "cover"}}  src={require('../images/splashImage.gif')} alt="loading..." />
                 {
                     isAuthenticated &&
-                    <Button style={{ backgroundColor: "#808e95",marginTop: "12px", borderRadius: "15px",}}>
-                    <Link style={{fontFamily:"inherit", color: "beige",}} to="/form-builder">
+                    <Button>
+                        <Link style={{ fontFamily: "inherit", color: "#d0edff", textDecoration:"none",}} to="/form-builder">
                         <Typography variant="h5" style={{ textAlign: "center", padding: "10px" }}>
                             Create
                         </Typography>
