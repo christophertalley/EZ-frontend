@@ -5,21 +5,39 @@ import Number from "./Fields/Number";
 import Date from "./Fields/Date";
 import Time from "./Fields/Time";
 
-export default function Field({props, required}){
-    const { field, label, disabled } = props;
+export default function Field({props, required,}){
+    const { field, label, disabled, setFieldValue} = props;
 
-    switch (field.type) {
-        case "singleText":
-            return<SingleLineText required={required} field={field} label={label} disabled={disabled}/>
-        case "multiText":
-            return <MultiLineText required={required} field={field} label={label} disabled={disabled}/>
-        case "number":
-            return <Number required={required} field={field} label={label} disabled={disabled}/>
-        case "date":
-            return <Date required={required} field={field} label={label} disabled={disabled}/>
-        case "time":
-            return <Time required={required} field={field} label={label} disabled={disabled}/>
-        default:
-            return null;
+    if (setFieldValue !== undefined) {
+        switch (field.type) {
+            case "singleText":
+                return<SingleLineText setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+            case "multiText":
+                return <MultiLineText setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+            case "number":
+                return <Number setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+            case "date":
+                return <Date setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+            case "time":
+                return <Time setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+            default:
+                return null;
+        }
+    } else {
+        switch (field.type) {
+            case "singleText":
+                return <SingleLineText required={required} field={field} label={label} disabled={disabled} />
+            case "multiText":
+                return <MultiLineText required={required} field={field} label={label} disabled={disabled} />
+            case "number":
+                return <Number required={required} field={field} label={label} disabled={disabled} />
+            case "date":
+                return <Date required={required} field={field} label={label} disabled={disabled} />
+            case "time":
+                return <Time required={required} field={field} label={label} disabled={disabled} />
+            default:
+                return null;
+        }
     }
+
 }

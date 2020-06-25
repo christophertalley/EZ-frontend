@@ -36,6 +36,12 @@ const useStyles = makeStyles((theme)=>({
             margin: "15px",
             backgroundColor: "#e3f2fd"
         },
+        '& label.Mui-focused': {
+            color: '#90caf9',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#90caf9',
+        },
     },
     form: {
         display: "flex",
@@ -67,6 +73,9 @@ export default function Form(){
     const [form, setForm] = useState(null);
     const [fields, setFields] = useState([]);
     const [fetched, setFetched] = useState(false);
+    const [fieldValue, setFieldValue ] = useState(null);
+    const [formResponse, setFormResponse] = useState({});
+
     useEffect(()=> {
         const loadForm = async () => {
             const res = await fetch(`${api}/forms/${formId}`);
@@ -88,13 +97,47 @@ export default function Form(){
                         dataFields.push({ ...form.formData[field] })
                     }
                     setFields(dataFields);
+                    setFormResponse({
+                        title: form.title,
+                        desc: form.desc,
+                        responses: []
+                    })
                 }
         }
         fieldSetter();
-    }, [form])
+
+    }, [form]);
+
+    useEffect(()=>{
+        const buildResponse = async ()=> {
+            // if (formResponse[responses].length !== 0) {
+            //     setFormResponse({
+            //         ...formResponse,
+            //         responses: [...formResponse[responses], fieldValue]
+            //     })
+            // } else {
+            //     setFormResponse({
+            //         ...formResponse,
+            //         responses: [fieldValue]
+            //     })
+            // }
+            // setFieldValue({});
+        }
+        buildResponse();
+    },[fieldValue])
+
+    const handleValue = async ( e ) => {
+        console.log(e.target.id);
+
+    }
+
 
     const handleSubmit = async( e ) => {
         e.preventDefault();
+    }
+    if (fieldValue) {
+        console.log(fieldValue);
+
     }
 
     if (!fetched) {
@@ -123,11 +166,11 @@ export default function Form(){
                     <form className={classes.form} onSubmit={handleSubmit}>
                         <div className={classes.fieldsContainer} >
                         {fields.map((field)=> {
-                                const props = {field: field, label:field.label, disabled:false }
+                            const props = { field: field, label: field.label, disabled: false, setFieldValue: setFieldValue }
                                 if (field.options.length > 0) {
-                                    return <Field key={field.id} props={props} required={true} />;
+                                    return <Field id={field.id} key={field.id} props={props} required={true}/>;
                                 } else {
-                                    return <Field key={field.id} props={props} required={false} />;
+                                    return <Field id={field.id} key={field.id} props={props} required={false} />;
                                 }
                             })}
                         </div>

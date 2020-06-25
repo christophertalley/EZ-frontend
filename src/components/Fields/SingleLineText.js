@@ -1,7 +1,10 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default function SingleLineText({field, disabled, label, required}){
+export default function SingleLineText({field, disabled, label, required, setFieldValue}){
+    const handleInput = async (e) => {
+        setFieldValue({question: label, response: e.target.value});
+    };
     return (
         <TextField
         required={required}
@@ -10,6 +13,7 @@ export default function SingleLineText({field, disabled, label, required}){
         label={label}
         autoComplete="off"
         defaultValue="Text input..."
+        onChange={handleInput}
         />
     )
 }

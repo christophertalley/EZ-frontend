@@ -26,13 +26,18 @@ const useStyles = makeStyles((theme)=>({
             justifyContent: "center",
             alignItems: "center",
             borderRadius: "15px",
-            margin: "15px",
+            margin: "20px",
             transition: "width 0.5s, height 0.5s"
         },
         '& .MuiCard-root:hover': {
-            width:"340px",
-            height:"190px",
+            width: "340px",
+            height: "190px",
         }
+    },
+    cardContainer: {
+        display: "flex",
+        flexDirection: "column",
+
     },
     title: {
         backgroundColor: "#bdbdbd",
@@ -85,19 +90,21 @@ export default function FormAdmin(){
                     forms.map((form)=>{
                         return (
                             <Card id={form._id}>
-                                <CardContent>
-                                    <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "5px" }}>
-                                        {form.title}
-                                    </Typography>
-                                    <Typography variant="h6" style={{ fontFamily: "'Roboto Mono', monospace", fontSize: "15px", textAlign: "center", padding: "5px"}}>
-                                        {form.desc}
-                                    </Typography>
-                                    <Link to={`/form/${form._id}/analyze`} style={{ fontFamily: "'Roboto Mono', monospace", textDecoration: "none", color: "#64b5f6", fontWeight: "bold" }}>
-                                        <Typography style={{ fontFamily: "'Roboto Mono', monospace" }} variant={"h5"}>
-                                            Analyze
+                                <div className={classes.cardContainer}>
+                                    <CardContent>
+                                        <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "5px", }}>
+                                            {form.title}
                                         </Typography>
-                                    </Link>
-                                </CardContent>
+                                        <Typography variant="h6" style={{ fontFamily: "'Roboto Mono', monospace", fontSize: "15px", textAlign: "center", padding: "5px",}}>
+                                            {form.desc}
+                                        </Typography>
+                                        <Link to={`/form/${form._id}/analyze`} style={{ fontFamily: "'Roboto Mono', monospace", textDecoration: "none", color: "#64b5f6", fontWeight: "bold" }}>
+                                            <Typography style={{ fontFamily: "'Roboto Mono', monospace" }} variant={"h5"}>
+                                                Analyze
+                                            </Typography>
+                                        </Link>
+                                    </CardContent>
+                                </div>
                             </Card>
                         )
                     })
