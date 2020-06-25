@@ -7,6 +7,7 @@ import Time from "./Fields/Time";
 
 export default function Field({props, required}){
     const { field, label, disabled } = props;
+
     switch (field.type) {
         case "singleText":
             return<SingleLineText required={required} field={field} label={label} disabled={disabled}/>

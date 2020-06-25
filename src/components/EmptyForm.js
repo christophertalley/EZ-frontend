@@ -256,7 +256,10 @@ export default function EmptyForm(){
         console.log(emptyFormData);
         console.log(user.userId);
 
-        if (isAuthenticated) {
+        if (emptyFormData === null){
+            alert('You need to add a field first!')
+        } else {
+            if (isAuthenticated) {
             const token = await getTokenSilently();
             console.log('token:', token);
 
@@ -283,7 +286,7 @@ export default function EmptyForm(){
                 setRedirect(true);
             } catch (e) {
                 console.error(e)
-            }
+            }}
         }
 
 
@@ -379,7 +382,7 @@ export default function EmptyForm(){
                                                     };
                                                     const keyNumber = Number(field.id) + Number(index);
                                                 return (
-                                                    <div className={classes.indivFieldContainer}>
+                                                    <div key={keyNumber} className={classes.indivFieldContainer}>
                                                         <DraggableField key={keyNumber} props={addedFieldProps}/>
                                                     </div>
                                                     )})}
