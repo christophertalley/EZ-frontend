@@ -13,7 +13,7 @@ export default function SingleLineText({field, disabled, label, required, setFie
         label={label}
         autoComplete="off"
         defaultValue="Text input..."
-        onChange={handleInput}
+        onBlur={handleInput}
         />
     )
 }

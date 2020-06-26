@@ -74,6 +74,7 @@ export default function Form(){
     const [fields, setFields] = useState([]);
     const [fetched, setFetched] = useState(false);
     const [fieldValue, setFieldValue ] = useState(null);
+    const [formResponses, setFormResponses] = useState([]);
     const [formResponse, setFormResponse] = useState({});
 
     useEffect(()=> {
@@ -110,18 +111,13 @@ export default function Form(){
 
     useEffect(()=>{
         const buildResponse = async ()=> {
-            // if (formResponse[responses].length !== 0) {
-            //     setFormResponse({
-            //         ...formResponse,
-            //         responses: [...formResponse[responses], fieldValue]
-            //     })
-            // } else {
-            //     setFormResponse({
-            //         ...formResponse,
-            //         responses: [fieldValue]
-            //     })
-            // }
-            // setFieldValue({});
+            if (fieldValue) {
+                console.log(fieldValue);
+                // const responses = [...formResponses, fieldValue]
+                // setFormResponses(responses);
+            }
+            console.log(formResponses);
+
         }
         buildResponse();
     },[fieldValue])
