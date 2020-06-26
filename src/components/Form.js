@@ -113,6 +113,11 @@ export default function Form(){
         const buildResponse = async ()=> {
             if (fieldValue) {
                 console.log(fieldValue);
+                const responses = {
+                    title:asdfas,
+                    desc: AudioDestinationNode,
+                    responses: []
+                }
                 // const responses = [...formResponses, fieldValue]
                 // setFormResponses(responses);
             }
