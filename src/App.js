@@ -12,6 +12,7 @@ import EmptyForm from "./components/EmptyForm";
 import Form from "./components/Form";
 import FormAdmin from "./components/FormAdmin";
 import FormAnalytics from './components/FormAnalytics';
+import SubmissionRecieved from "./components/SubmissionReceieved";
 
 export default function App() {
   const { loading } = useAuth0();
@@ -30,6 +31,7 @@ export default function App() {
         <Route exact path="/" component={Home}/>
         <Route exact path="/form/:formId" component={Form}/>
         <PrivateRoute exact path="/form/:formId/analyze" component={FormAnalytics}/>
+        <Route path="/success" component={SubmissionRecieved}/>
         <PrivateRoute path="/admin" component={FormAdmin}/>
         <PrivateRoute path ="/profile" component={Profile}/>
         <PrivateRoute path="/form-builder" component={EmptyForm}/>

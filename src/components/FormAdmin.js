@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme)=>({
             color: "#cfcfcf",
             display: "flex",
             flexDirection: "column",
-            height: "200px",
+            height: "225px",
+            minWidth: "350px",
             width: "350px",
             justifyContent: "center",
             alignItems: "center",
@@ -34,8 +35,8 @@ const useStyles = makeStyles((theme)=>({
             boxSizing: "border-box"
         },
         '& .MuiCard-root:hover': {
-            width: "365px",
-            height: "215px",
+            width: "360px",
+            height: "230px",
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
@@ -46,7 +47,9 @@ const useStyles = makeStyles((theme)=>({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        maxWidth: "100%",
+        maxHeight: "95%"
     },
     title: {
         backgroundColor: "#bdbdbd",
@@ -61,7 +64,7 @@ const useStyles = makeStyles((theme)=>({
         flexDirection: "row-reverse",
         justifyContent: "end",
         alignItems: "center",
-        paddingRight: "0px",
+        padding: "3px",
         margin: "0 auto",
         '& .MuiIconButton-root': {
             padding: "0px",

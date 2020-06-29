@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useAuth0 } from '../react-auth0-spa';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { api } from '../config';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -68,13 +68,13 @@ const useStyles = makeStyles((theme)=>({
 export default function Form(){
     const classes = useStyles();
     const { formId } = useParams();
-    const { loading } = useAuth0;
-
+    const { loading, getTokenSilently } = useAuth0();
+    const [redirect, setRedirect] = useState(false);
     const [form, setForm] = useState(null);
     const [fields, setFields] = useState([]);
     const [fetched, setFetched] = useState(false);
     const [fieldValue, setFieldValue ] = useState(null);
-    const [formResponses, setFormResponses] = useState([]);
+    const [formResponses, setFormResponses] = useState({});
     const [formResponse, setFormResponse] = useState({});
 
     useEffect(()=> {
@@ -101,7 +101,7 @@ export default function Form(){
                     setFormResponse({
                         title: form.title,
                         desc: form.desc,
-                        responses: []
+                        responses: {}
                     })
                 }
         }
@@ -112,29 +112,56 @@ export default function Form(){
     useEffect(()=>{
         const buildResponse = async ()=> {
             if (fieldValue) {
-                console.log(fieldValue);
-                // const responses = [...formResponses, fieldValue]
-                // setFormResponses(responses);
-            }
-            console.log(formResponses);
+                const objFieldId = Object.keys(fieldValue);
+                console.log(objFieldId[0]);
 
+                // if (objFieldId in Object.keys(formResponses)) {
+                    const newFormResponses = {
+                        ...formResponses,
+                        [objFieldId]: fieldValue[objFieldId]
+                    }
+                    // console.log(newFormResponses);
+                    setFormResponses(newFormResponses);
         }
-        buildResponse();
-    },[fieldValue])
-
-    const handleValue = async ( e ) => {
-        console.log(e.target.id);
-
     }
+        buildResponse();
+    },[fieldValue]);
 
+    useEffect(()=>{
+        const newResponse = {
+            ...formResponse,
+            responses: formResponses
+        }
+        setFormResponse(newResponse);
+
+    }, [formResponses]);
 
     const handleSubmit = async( e ) => {
         e.preventDefault();
-    }
-    if (fieldValue) {
-        console.log(fieldValue);
+        console.log(formResponse);
+        const token = await getTokenSilently();
+        const body = {
+            ...formResponse,
+            formId: formId
+        };
+        try {
+            const res = await fetch(`${api}/forms/${formId}/data`,{
+                method: "POST",
+                body: JSON.stringify(body),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            });
+            const result = await res.json();
+            setRedirect(true);
+        } catch (e) {
+            console.error(e)
+        }
 
-    }
+
+
+    };
 
     if (!fetched) {
         return (
@@ -143,6 +170,14 @@ export default function Form(){
                 Loading..
             </div>
         )
+    } else if (redirect) {
+            return (
+                <Redirect
+                    to={{
+                        pathname: `/success`
+                    }}
+                />
+            )
     } else {
         return (
             <>
@@ -161,8 +196,9 @@ export default function Form(){
                     </div>
                     <form className={classes.form} onSubmit={handleSubmit}>
                         <div className={classes.fieldsContainer} >
-                        {fields.map((field)=> {
-                            const props = { field: field, label: field.label, disabled: false, setFieldValue: setFieldValue }
+                        {fields.map((field, index)=> {
+                            const fieldFormid = `field-${index}`
+                            const props = { field: field, label: field.label, disabled: false, setFieldValue: setFieldValue, formFieldId:fieldFormid }
                                 if (field.options.length > 0) {
                                     return <Field id={field.id} key={field.id} props={props} required={true}/>;
                                 } else {
@@ -171,7 +207,7 @@ export default function Form(){
                             })}
                         </div>
                         <div className={classes.submitButton}>
-                            <Button>
+                            <Button type="submit">
                                 Submit Form
                             </Button>
                         </div>

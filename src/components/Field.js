@@ -6,20 +6,20 @@ import Date from "./Fields/Date";
 import Time from "./Fields/Time";
 
 export default function Field({props, required,}){
-    const { field, label, disabled, setFieldValue} = props;
+    const { field, label, disabled, setFieldValue, formFieldId } = props;
 
-    if (setFieldValue !== undefined) {
+    if (setFieldValue !== undefined && formFieldId !== undefined) {
         switch (field.type) {
             case "singleText":
-                return<SingleLineText setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+                return <SingleLineText formFieldId={formFieldId} setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
             case "multiText":
-                return <MultiLineText setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+                return <MultiLineText formFieldId={formFieldId} setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
             case "number":
-                return <Number setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+                return <Number formFieldId={formFieldId} setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
             case "date":
-                return <Date setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+                return <Date formFieldId={formFieldId} setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
             case "time":
-                return <Time setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
+                return <Time formFieldId={formFieldId} setFieldValue={setFieldValue} required={required} field={field} label={label} disabled={disabled}/>
             default:
                 return null;
         }
