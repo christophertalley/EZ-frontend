@@ -30,7 +30,7 @@ export default function ShareableLink ({formId}) {
                         {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={350}>
                                 <Paper>
-                                    <Typography className={classes.typography}>{`localhost:3000/form/${formId}`}</Typography>
+                                    <Typography className={classes.typography}>{`https://master.d2orb18e1brind.amplifyapp.com/form/${formId}`}</Typography>
                                 </Paper>
                             </Fade>
                         )}

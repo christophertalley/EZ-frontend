@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme)=>({
         flexDirection: "column",
         backgroundColor: "#5a66bc",
         color: "beige",
-        width: "1300px",
+        maxWidth: "1200px",
+        maxHeight: "85vh",
         alignItems: "center",
         borderRadius: "50px",
         boxSizing: "borderBox",
@@ -42,7 +43,7 @@ export default function Home(){
                 <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace",textAlign: "center", padding: "10px", color:"#f7f7ff"}} >
                     Welcome to EZ Forms. If you need to generate a form  in a quick and hassle-free manner, then you've come to the right place!
                 </Typography>
-                <img style={{ width: "100%", maxWidth: "1100px", borderRadius: "50px", objectFit: "cover"}}  src={require('../images/splashImage.gif')} alt="loading..." />
+                <img style={{ width: "85%", maxWidth: "1100px", borderRadius: "50px", objectFit: "cover"}}  src={require('../images/splashImage.gif')} alt="loading..." />
                 {
                     isAuthenticated &&
                     <Button>

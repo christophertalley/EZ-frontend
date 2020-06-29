@@ -117,7 +117,6 @@ export default function EmptyForm(){
     const [isRequiredCheck, setIsRequiredCheck ] = useState({});
     const [labelUpdated, setLabelUpdated] = useState(false);
     const [fieldLabel, setFieldLabel] = useState({});
-    const RequiredContext = React.createContext(setIsRequiredCheck);
     const [state, setState ] = useState(fieldData);
     const [emptyFormData, setEmptyFormData] = useState(null);
     // Use state was converting dndfields back to an object, so selectable fields
@@ -352,6 +351,10 @@ export default function EmptyForm(){
                         )
                     }}
                     </Droppable>
+                    <Typography style={{ paddingTop: "30px", fontSize: "20px",fontFamily: "'Roboto Mono', monospace", textAlign: "center" }} >
+                        More fields coming soon!
+
+                    </Typography>
 
                 </div>
                 <div className={classes.formContainer}>

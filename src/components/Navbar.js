@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: "center"
         },
         linkContainer: {
-            width: "300px",
+            minWidth: "100px",
+            maxWidth: "150px",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -67,28 +68,26 @@ export default function Navbar () {
                             </Link>
                         </div>
 
+
+                        <div className={classes.linkContainer}>
+
                             {!isAuthenticated && (
-                                <IconButton style={{marginLeft:"91%"}} onClick={() => loginWithRedirect({})}>
+                                <IconButton style={{alignSelf: "end"}} onClick={() => loginWithRedirect({})}>
                                     <EmojiPeopleIcon style={{ color: "#64b5f6"}}/>
                                     <Typography style={{ color: "#64b5f6" }}>
                                         Login
                                     </Typography>
                                 </IconButton>
                             )}
-
-                        <div className={classes.linkContainer}>
                             {isAuthenticated && (
                                 <>
-                                    <Link to="/admin" style={{ textDecoration: "none", color: "#64b5f6", fontWeight: "bold" }}>My Forms</Link>
-                                    <Link to="/external-api" style={{ textDecoration: "none", color: "#64b5f6", fontWeight: "bold" }}>External Api</Link>
+                                    <Link to="/admin" style={{ textDecoration: "none", color: "#64b5f6", fontWeight: "bold", marginRight: "8px" }}>My Forms</Link>
+                                    <IconButton onClick={() => logout()}>
+                                        <ExitToAppIcon style={{ color: "#64b5f6", marginLeft: "8px" }} />
+                                    </IconButton>
                                 </>
                             )}
 
-                            {isAuthenticated && (
-                                <IconButton  onClick={() => logout()}>
-                                    <ExitToAppIcon style={{ color:"#64b5f6"}}/>
-                                </IconButton>
-                            )}
                         </div>
                     </div>
                 </Toolbar>
