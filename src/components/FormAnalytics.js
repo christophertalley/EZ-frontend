@@ -120,7 +120,7 @@ export default function FormAnalytics(){
                                     <Typography variant="h3" style={{ color: "#455a64", fontFamily: "'Roboto Mono', monospace", fontSize: "18px", padding: "12px", fontStyle:"italic" }}>
                                         {`Entry no.${index + 1}:`}
                                     </Typography>
-                                    <Typography variant="h6" style={{ color: "#ff1744", fontFamily: "'Roboto Mono', monospace", fontSize: "15px", padding: "12px" }}>
+                                    <Typography variant="h6" style={{ textAlign: "center", color: "#ff1744", fontFamily: "'Roboto Mono', monospace", fontSize: "15px", padding: "12px" }}>
                                         {
                                             JSON.stringify(currentEntries)
                                         }

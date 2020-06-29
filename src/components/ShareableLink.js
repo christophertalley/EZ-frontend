@@ -7,6 +7,9 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import { IconButton } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
+import { Link } from 'react-router-dom';
+
+
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -18,6 +21,8 @@ const useStyles = makeStyles((theme) =>
 
 export default function ShareableLink ({formId}) {
     const classes = useStyles();
+    const url = process.env.NODE_ENV == "production" ? `https://master.d2orb18e1brind.amplifyapp.com/form/${formId}` : `http://localhost:3000/form/${formId}`
+    console.log(url);
 
     return (
         <PopupState variant="popper" popupId="demo-popup-popper">
@@ -30,7 +35,11 @@ export default function ShareableLink ({formId}) {
                         {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={350}>
                                 <Paper>
-                                    <Typography className={classes.typography}>{`https://master.d2orb18e1brind.amplifyapp.com/form/${formId}`}</Typography>
+                                    <Typography className={classes.typography}>
+                                        <Link to={{
+                                            pathname: `/form/${formId}`
+                                        }}>{url}</Link>
+                                    </Typography>
                                 </Paper>
                             </Fade>
                         )}
