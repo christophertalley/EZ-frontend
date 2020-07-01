@@ -1,1 +1,1 @@
-export const api = process.env.NODE_ENV === 'development' ? 'https://ez-forms-api.herokuapp.com' : 'https://ez-forms-api.herokuapp.com'
+export const api = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://ez-forms-api.herokuapp.com'

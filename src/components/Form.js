@@ -139,7 +139,7 @@ export default function Form(){
     const handleSubmit = async( e ) => {
         e.preventDefault();
         console.log(formResponse);
-        const token = await getTokenSilently();
+        // const token = await getTokenSilently();
         const body = {
             ...formResponse,
             formId: formId
@@ -150,7 +150,6 @@ export default function Form(){
                 body: JSON.stringify(body),
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
             });
             const result = await res.json();
