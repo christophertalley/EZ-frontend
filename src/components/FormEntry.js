@@ -44,8 +44,8 @@ export default function ({props}) {
                             <TableCell component="th" scope="row">
                                 {`# ${i}`}
                             </TableCell>
-                            <TableCell align="left">{entryResponse[0]}</TableCell>
-                            <TableCell align="left">{entryResponse[1]}</TableCell>
+                            <TableCell align="center">{entryResponse[0]}</TableCell>
+                            <TableCell align="center">{entryResponse[1]}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
