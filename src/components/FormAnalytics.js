@@ -110,7 +110,7 @@ export default function FormAnalytics(){
                         // return <div>{currentEntry.questiob}</div>
                         questions.push(currentEntry.question);
                         answers.push(currentEntry.response);
-                        currentEntryObj['entryResponses'] = [[currentEntry.question, currentEntry.response], ...currentEntryObj['entryResponses']]
+                        currentEntryObj['entryResponses'] = [...currentEntryObj['entryResponses'], [currentEntry.question, currentEntry.response]]
                     })
                     formBuilderArray.push(currentEntryObj);
                 }})

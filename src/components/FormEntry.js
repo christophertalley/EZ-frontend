@@ -30,10 +30,10 @@ export default function ({props}) {
                         <TableCell align="left" >
                             Res #:
                         </TableCell>
-                        <TableCell align="right" >
+                        <TableCell align="center" >
                             Questions:
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="center">
                             Response:
                         </TableCell>
                     </TableRow>
@@ -44,8 +44,8 @@ export default function ({props}) {
                             <TableCell component="th" scope="row">
                                 {`# ${i}`}
                             </TableCell>
-                            <TableCell align="right">{entryResponse[0]}</TableCell>
-                            <TableCell align="right">{entryResponse[1]}</TableCell>
+                            <TableCell align="left">{entryResponse[0]}</TableCell>
+                            <TableCell align="left">{entryResponse[1]}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
