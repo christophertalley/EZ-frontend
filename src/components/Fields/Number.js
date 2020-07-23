@@ -12,7 +12,7 @@ export default function Number({ field, disabled, label, required, setFieldValue
             disabled={disabled}
             id={field.id}
             label={label}
-            defaultValue={0}
+            placeholder={0}
             autoComplete="off"
             type="number"
             onBlur={handleInput}
@@ -25,7 +25,7 @@ export default function Number({ field, disabled, label, required, setFieldValue
                 disabled={disabled}
                 id={field.id}
                 label={label}
-                defaultValue={0}
+                placeholder={0}
                 autoComplete="off"
                 type="number"
             />

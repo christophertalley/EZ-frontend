@@ -14,7 +14,7 @@ export default function MultiLineText({ field, label, disabled, required, setFie
             multiline
             id={field.id}
             label={label}
-            defaultValue="Text input for longer lines of text when you need extra space!"
+            placeholder="Text input for longer lines of text when you need extra space!"
             rows={2}
             rowsMax={5}
             onBlur={handleInput} />
@@ -28,7 +28,7 @@ export default function MultiLineText({ field, label, disabled, required, setFie
                 multiline
                 id={field.id}
                 label={label}
-                defaultValue="Text input for longer lines of text when you need extra space!"
+                placeholder="Text input for longer lines of text when you need extra space!"
                 rows={2}
                 rowsMax={5}
                 onBlur={handleInput} />
