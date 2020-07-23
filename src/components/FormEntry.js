@@ -20,27 +20,21 @@ export default function ({props}) {
     const classes = useStyles();
     return (
         <>
-        <Typography>
-            {title}
+            <Typography variant="h5" style={{ backgroundColor: "white", marginBottom: "1.5vh", borderRadius: "10px", width:"fit-content",marginLeft: "25px", color: "#91A6B4", fontFamily: "'Roboto Mono', monospace", textAlign:"start", fontSize: "24px", padding: "12px" }}>
+            {title}:
         </Typography>
-        <TableContainer style={{ maxWidth: '80%', borderRadius: "15px", display: "flex", justifyContent: "center", alignItems: "center" }} component={Paper}>
-            <Table className={classes.table}>
+        <TableContainer style={{ margin: "0 auto", padding: "2px", marginBottom:"1.5vh", maxWidth: '80%', borderRadius: "15px", display: "flex", justifyContent: "center", alignItems: "center" }} component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="right" >
-                            <Typography variant="h6" style={{ textAlign: "center", color: "#ff1744", fontFamily: "'Roboto Mono', monospace", fontSize: "15px", padding: "12px" }}>
-                                Res #
-                        </Typography>
+                        <TableCell align="left" >
+                            Res #:
                         </TableCell>
                         <TableCell align="right" >
-                            <Typography variant="h6" style={{ textAlign: "center", color: "#ff1744", fontFamily: "'Roboto Mono', monospace", fontSize: "15px", padding: "12px" }}>
-                                Question:
-                            </Typography>
+                            Questions:
                         </TableCell>
                         <TableCell align="right">
-                            <Typography variant="h6" style={{ textAlign: "center", color: "#ff1744", fontFamily: "'Roboto Mono', monospace", fontSize: "15px", padding: "12px" }}>
-                                Response:
-                            </Typography>
+                            Response:
                         </TableCell>
                     </TableRow>
                 </TableHead>
