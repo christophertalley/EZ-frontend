@@ -9,7 +9,7 @@ import { Typography, Paper, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(()=>({
     table: {
-
+        maxWidth:"80%"
     }
 }))
 
