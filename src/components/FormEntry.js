@@ -20,7 +20,7 @@ export default function ({props}) {
     const classes = useStyles();
     return (
         <>
-            <Typography variant="h5" style={{ backgroundColor: "white", marginBottom: "1.5vh", borderRadius: "10px", width:"fit-content",marginLeft: "25px", color: "#91A6B4", fontFamily: "'Roboto Mono', monospace", textAlign:"start", fontSize: "24px", padding: "12px" }}>
+        <Typography variant="h5" style={{ backgroundColor: "white", marginBottom: "1.5vh", borderRadius: "10px", width:"fit-content",marginLeft: "25px", color: "#91A6B4", fontFamily: "'Roboto Mono', monospace", textAlign:"start", fontSize: "24px", padding: "12px" }}>
             {title}:
         </Typography>
         <TableContainer style={{ margin: "0 auto", padding: "2px", marginBottom:"1.5vh", maxWidth: '80%', borderRadius: "15px", display: "flex", justifyContent: "center", alignItems: "center" }} component={Paper}>
