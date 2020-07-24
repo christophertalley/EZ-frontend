@@ -13,7 +13,7 @@ export default function SingleLineText({ field, disabled, label, required, setFi
             id={field.id}
             label={label}
             autoComplete="off"
-            defaultValue="Text input..."
+            placeholder="Text input..."
             onBlur={handleInput}
             />
         )
@@ -25,7 +25,7 @@ export default function SingleLineText({ field, disabled, label, required, setFi
                 id={field.id}
                 label={label}
                 autoComplete="off"
-                defaultValue="Text input..."
+                placeholder="Text input..."
                 onBlur={handleInput}
             />
         )

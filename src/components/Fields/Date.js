@@ -13,7 +13,7 @@ export default function Date({ field, disabled, label, required, setFieldValue, 
                 autoComplete="off"
                 id={field.id}
                 label={label}
-                defaultValue="2020-01-27"
+                placeholder="2020-01-27"
                 onBlur={handleInput}
             />
         )
