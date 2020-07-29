@@ -3,7 +3,9 @@ import TextField from '@material-ui/core/TextField';
 
 export default function Date({ field, disabled, label, required, setFieldValue, formFieldId }) {
     const handleInput = async (e) => {
-        setFieldValue({ [formFieldId]: { question: label, response: e.target.value } });
+        if (setFieldValue !== undefined) {
+            setFieldValue({ [formFieldId]: { question: label, response: e.target.value } });
+        }
     };
     if (setFieldValue !== undefined) {
         return (
@@ -20,12 +22,12 @@ export default function Date({ field, disabled, label, required, setFieldValue, 
     } else {
         return (
             <TextField
-            required={required}
-            disabled={disabled}
-            autoComplete="off"
-            id={field.id}
-            label={label}
-            defaultValue="2020-01-27"
+                required={required}
+                disabled={disabled}
+                autoComplete="off"
+                id={field.id}
+                label={label}
+                defaultValue="2020-01-27"
             />
         )
     }

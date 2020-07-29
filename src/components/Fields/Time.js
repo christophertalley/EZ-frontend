@@ -1,9 +1,11 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export default function Time({ field, disabled, label, required, setFieldValue, formFieldId }){
+export default function Time({ field, disabled, label, required, setFieldValue, formFieldId }) {
     const handleInput = async (e) => {
-        setFieldValue({ [formFieldId]: { question: label, response: e.target.value } });
+        if (setFieldValue !== undefined) {
+            setFieldValue({ [formFieldId]: { question: label, response: e.target.value } });
+        }
     };
     if (setFieldValue !== undefined) {
         return (

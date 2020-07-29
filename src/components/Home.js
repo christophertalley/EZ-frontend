@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useAuth0 } from "../react-auth0-spa";
 
-const useStyles = makeStyles((theme)=>({
+const useStyles = makeStyles((theme) => ({
     root: {
         color: "black",
         display: "flex",
@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme)=>({
     welcomeContainer: {
         padding: "15px",
         marginTop: "30px",
-        display:"flex",
+        display: "flex",
         flexDirection: "column",
         backgroundColor: "#5a66bc",
         color: "beige",
-        maxWidth: "1200px",
-        maxHeight: "85vh",
+        maxWidth: "65vw",
+        maxHeight: "80vh",
         alignItems: "center",
         borderRadius: "50px",
         boxSizing: "borderBox",
@@ -31,32 +31,56 @@ const useStyles = makeStyles((theme)=>({
             marginTop: "12px",
             borderRadius: "15px"
         }
-}
+    }
 }));
 
-export default function Home(){
-    const {isAuthenticated} = useAuth0();
+export default function Home() {
+    const { user, isAuthenticated } = useAuth0();
     const classes = useStyles();
     return (
         <div id="home-container" className={classes.root}>
             <div id="splash-page" className={classes.welcomeContainer}>
-                <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace",textAlign: "center", padding: "10px", color:"#f7f7ff"}} >
-                    Welcome to EZ Forms. If you need to generate a form  in a quick and hassle-free manner, then you've come to the right place!
-                </Typography>
-                <img style={{ width: "85%", maxWidth: "1100px", borderRadius: "50px", objectFit: "cover"}}  src={require('../images/splashImage.gif')} alt="loading..." />
                 {
                     isAuthenticated &&
-                    <Button>
-                        <Link style={{ fontFamily: "inherit", color: "#d0edff", textDecoration:"none",}} to="/form-builder">
-                            <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace",textAlign: "center", padding: "10px" }}>
-                            Create
-                        </Typography>
-                    </Link>
-                </Button>
+                    <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#f7f7ff", fontSize: "2rem" }} >
+                        Welcome back {user.nickname}!
+                    </Typography>
                 }
                 {
                     !isAuthenticated &&
-                    <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace",textAlign: "center", padding: "10px" }}>
+                    <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#f7f7ff", fontSize: "2rem" }} >
+                        Welcome to EZforms!
+                    </Typography>
+                }
+                <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#f7f7ff", fontSize: "1.5rem" }} >
+                    EZforms is the simplest way to host, share, and analyze forms to collect feedback from peers.
+                </Typography>
+                {
+                    !isAuthenticated &&
+                    <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#f7f7ff", fontSize: "1.5rem" }} >
+                        What are you waiting for? Get started now!
+                    </Typography>
+                }
+                {
+                    isAuthenticated &&
+                    <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#f7f7ff", fontSize: "1.5rem" }} >
+                        Click create to make a new form or click on my forms to share/analyze.
+                    </Typography>
+                }
+                <img style={{ width: "85%", maxWidth: "1100px", borderRadius: "50px", objectFit: "cover" }} src={require('../images/splashImage.gif')} alt="loading..." />
+                {
+                    isAuthenticated &&
+                    <Button>
+                        <Link style={{ fontFamily: "inherit", color: "#d0edff", textDecoration: "none", }} to="/form-builder">
+                            <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px" }}>
+                                Create
+                            </Typography>
+                        </Link>
+                    </Button>
+                }
+                {
+                    !isAuthenticated &&
+                    <Typography variant="h5" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px" }}>
                         To get started, create an account or sign in!
                     </Typography>
                 }
