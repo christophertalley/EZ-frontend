@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Field from './Field';
 import Button from '@material-ui/core/Button';
+import "../styles/form.css"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         width: "50vw",
         minWidth: "400px",
-        maxHeight: "60vh",
+        maxHeight: "70vh",
+        minHeight: "50vh",
         backgroundColor: "#d7ccc8",
         borderRadius: "15px",
         padding: "10px",
@@ -29,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     fieldsContainer: {
         display: "flex",
         flexDirection: "column",
+        overflowY: "scroll",
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
             width: '45vw',
@@ -187,7 +190,7 @@ export default function Form() {
                     <div className={classes.root}>
                         <Paper className={classes.container} elevation={3}>
                             <div style={{ padding: "10px" }}>
-                                <Typography style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#607d8b",}} variant="h3">
+                                <Typography style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#607d8b", }} variant="h3">
                                     {form.title}
                                 </Typography>
                             </div>
@@ -197,7 +200,7 @@ export default function Form() {
                                 </Typography>
                             </div>
                             <form className={classes.form} onSubmit={handleSubmit}>
-                                <div className={classes.fieldsContainer} >
+                                <div id="fields-container" className={classes.fieldsContainer} >
                                     {fields.map((field, index) => {
                                         const fieldFormid = `field-${index}`
                                         const props = { field: field, label: field.label, disabled: false, setFieldValue: setFieldValue, formFieldId: fieldFormid }
@@ -211,7 +214,7 @@ export default function Form() {
                                 <div className={classes.submitButton}>
                                     <Button type="submit">
                                         Submit Form
-                            </Button>
+                                    </Button>
                                 </div>
                             </form>
                         </Paper>

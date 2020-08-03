@@ -52,7 +52,7 @@ export default function Home() {
                         Welcome to EZforms!
                     </Typography>
                 }
-                <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#f7f7ff", fontSize: "1.5rem" }} >
+                <Typography variant="h4" style={{ fontFamily: "'Roboto Mono', monospace", textAlign: "center", padding: "10px", color: "#f7f7ff", fontSize: "1.15rem" }} >
                     EZforms is the simplest way to host, share, and analyze forms to collect feedback from peers.
                 </Typography>
                 {
